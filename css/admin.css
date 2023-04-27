@@ -1,0 +1,66 @@
+/* DB Settings Styling */
+
+.db-settings-admin h1 {
+    font-size: 3em;
+}
+
+.db-settings-admin h2 {
+    font-size: 2em;
+    margin-top: 2em;
+}
+
+.db-settings-description p {
+    color: #525d65;
+    font-size: 1.5em;
+    margin: .5em 0;
+}
+
+.db-settings-admin .db-settings-table {
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    background: rgba(255,255,255,.75);
+    width: 100%;
+}
+
+.db-settings-admin .db-settings-table tr:first-child > :first-child {
+    -webkit-border-top-left-radius: 25px;
+    -moz-border-radius-topleft: 25px;
+    border-top-left-radius: 25px;
+}
+
+.db-settings-admin .db-settings-table tr:first-child > :last-child {
+    -webkit-border-top-right-radius: 25px;
+    -moz-border-radius-topright: 25px;
+    border-top-right-radius: 25px;
+}
+
+.db-settings-admin .db-settings-table tr:last-child > :first-child {
+    -webkit-border-bottom-left-radius: 25px;
+    -moz-border-radius-bottomleft: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+.db-settings-admin .db-settings-table tr:last-child > :last-child {
+    -webkit-border-bottom-right-radius: 25px;
+    -moz-border-radius-bottomright: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.db-settings-admin .db-settings-table th,
+.db-settings-admin .db-settings-table td {
+    border-left: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 10px 30px;
+}
+
+.db-settings-field-description {
+    font-size: .9em;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.db-center {
+    text-align: center;
+}
+
