@@ -3,7 +3,7 @@
 Plugin Name: DB Website Settings
 Plugin URI: https://github.com/bisteinoff/db-website-settings
 Description: The plugin is used for the basic website settings
-Version: 1.0
+Version: 1.1
 Author: Denis Bisteinov
 Author URI: https://bisteinoff.com
 License: GPL2
@@ -68,18 +68,17 @@ License: GPL2
 
 				// Whatsapp Plain Text
 				add_shortcode('db-whatsapp', function() {
-					return sanitize_text_field ( get_option('db_settings_whatsapp') );
+					return $this -> whatsapp( 'text' );
 				});
 
 				// Whatsapp As Link
 				add_shortcode('db-whatsapp-link', function() {
-					$whatsapp = sanitize_text_field ( get_option('db_settings_whatsapp') );
-					$link = str_replace(
-						array( " ", "(", ")" ),
-						'',
-						$whatsapp
-					);
-					return "<a href=\"https://wa.me/:{$link}\">{$whatsapp}</a>"; 
+					return $this -> whatsapp( 'link' );
+				});
+
+				// Whatsapp href
+				add_shortcode('db-whatsapp-href', function() {
+					return $this -> whatsapp( 'href' );
 				});
 
 				// E-mail Plain Text
@@ -94,6 +93,36 @@ License: GPL2
 				});
 
 			}
+
+		}
+
+		function whatsapp( $type ) {
+
+			$whatsapp = sanitize_text_field ( get_option('db_settings_whatsapp') );
+
+			switch ( $type ) {
+
+				case "text" :
+					$html = $whatsapp;
+					break;
+
+				case "href" :
+					$href = str_replace(
+						array( " ", "(", ")", "+" ),
+						'',
+						$whatsapp
+					);
+					$html = "https://wa.me/{$href}";
+					break;
+
+				case "link" :
+					$link = $this -> whatsapp( "href" );
+					$html = "<a href=\"{$link}\">{$whatsapp}</a>";
+					break;
+
+			}
+
+			return $html;
 
 		}
 

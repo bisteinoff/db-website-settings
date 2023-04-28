@@ -57,17 +57,20 @@
 
 		<table class="form-table db-settings-table" width="100%">
 			<tr valign="top">
-				<th scope="col" width="25%">
+				<th scope="col" width="20%">
 					<?php _e('Parameter' , 'db-website-settings') ?>
 				</th>
-				<th width="25%">
+				<th scope="col" width="20%">
 					<?php _e('Value' , 'db-website-settings') ?>
 				</th>
-				<th width="25%">
+				<th scope="col" width="20%">
 					<?php _e('Shortcode' , 'db-website-settings') ?>
 				</th>
-				<th width="25%">
+				<th scope="col" width="20%">
 					<?php _e('Shortcode' , 'db-website-settings') ?> <?php _e('description' , 'db-website-settings') ?>
+				</th>
+				<th scope="col" width="20%">
+					<?php _e('Example' , 'db-website-settings') ?>
 				</th>
 			</tr>
 			<tr valign="top">
@@ -84,6 +87,9 @@
 				<td>
 					<?php _e('insert' , 'db-website-settings') ?> <?php _e('the phone number' , 'db-website-settings') ?> <?php _e('as text' , 'db-website-settings') ?>
 				</td>
+				<td>
+					<?php echo do_shortcode("[db-phone]"); ?>
+				</td>
 			</tr>
 			<tr valign="top">
 				<td>
@@ -92,12 +98,15 @@
 				<td>
 					<?php _e('insert' , 'db-website-settings') ?> <?php _e('the phone number' , 'db-website-settings') ?> <?php _e('as link' , 'db-website-settings') ?>
 				</td>
+				<td>
+					<?php echo do_shortcode("[db-phone-link]"); ?>
+				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row" rowspan="2">
+				<th scope="row" rowspan="3">
 					<?php _e('Whatsapp' , 'db-website-settings') ?>
 				</th>
-				<td rowspan="2">
+				<td rowspan="3">
 					<input type="text" name="whatsapp" id="db_settings_whatsapp"
 							size="20" value="<?php echo $db_settings_whatsapp; ?>" />
 				</td>
@@ -107,6 +116,9 @@
 				<td>
 					<?php _e('insert' , 'db-website-settings') ?> <?php _e('the whatsapp number' , 'db-website-settings') ?> <?php _e('as text' , 'db-website-settings') ?>
 				</td>
+				<td>
+					<?php echo do_shortcode("[db-whatsapp]"); ?>
+				</td>
 			</tr>
 			<tr valign="top">
 				<td>
@@ -114,6 +126,20 @@
 				</td>
 				<td>
 					<?php _e('insert' , 'db-website-settings') ?> <?php _e('the whatsapp number' , 'db-website-settings') ?> <?php _e('as link' , 'db-website-settings') ?>
+				</td>
+				<td>
+					<?php echo do_shortcode("[db-whatsapp-link]"); ?>
+				</td>
+			</tr>
+			<tr valign="top">
+				<td>
+					[db-whatsapp-href]
+				</td>
+				<td>
+					<?php _e('insert' , 'db-website-settings') ?> <?php _e('the href parametr of the whatsapp number' , 'db-website-settings') ?>
+				</td>
+				<td>
+					<?php echo do_shortcode("[db-whatsapp-href]"); ?>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -130,6 +156,9 @@
 				<td>
 					<?php _e('insert' , 'db-website-settings') ?> <?php _e('the e-mail' , 'db-website-settings') ?> <?php _e('as text' , 'db-website-settings') ?>
 				</td>
+				<td>
+					<?php echo do_shortcode("[db-email]"); ?>
+				</td>
 			</tr>
 			<tr valign="top">
 				<td>
@@ -137,6 +166,9 @@
 				</td>
 				<td>
 					<?php _e('insert' , 'db-website-settings') ?> <?php _e('the e-mail' , 'db-website-settings') ?> <?php _e('as link' , 'db-website-settings') ?>
+				</td>
+				<td>
+					<?php echo do_shortcode("[db-email-link]"); ?>
 				</td>
 			</tr>
 		</table>
