@@ -87,7 +87,7 @@
 				wp_nonce_field('db_settings_form');
 		?>
 
-		<table class="form-table db-settings-table" width="100%">
+		<table id="db-settings-table" class="form-table db-settings-table" width="100%">
 			<tr valign="top">
 				<th scope="col" width="20%">
 					<?php _e( "Parameter" , $d ) ?>
@@ -244,15 +244,18 @@
 <script type="text/javascript">
 	let dbSettingsDescriptions = {
 		"phone" : [
+			"<?php _e( "Phone" , $d ) ?>",
 			"<?php _e( "insert" , $d ) ?> <?php _e( "the phone number" , $d ) ?> <?php _e( "as text" , $d ) ?>",
 			"<?php _e( "insert" , $d ) ?> <?php _e("the phone number" , $d ) ?> <?php _e( "as link" , $d ) ?>"
 		],
 		"whatsapp" : [
+			"<?php _e( "Whatsapp" , $d ) ?>",
 			"<?php _e( "insert" , $d ) ?> <?php _e( "the whatsapp number" , $d ) ?> <?php _e( "as text" , $d ) ?>",
 			"<?php _e( "insert" , $d ) ?> <?php _e( "the whatsapp number" , $d ) ?> <?php _e( "as link" , $d ) ?>",
 			"<?php _e( "insert" , $d ) ?> <?php _e( "the href parametr of the whatsapp number" , $d ) ?>"
 		],
 		"email" : [
+			"<?php _e( "E-mail" , $d ) ?>",
 			"<?php _e( "insert" , $d ) ?> <?php _e( "the e-mail" , $d ) ?> <?php _e( "as text" , $d ) ?>",
 			"<?php _e( "insert" , $d ) ?> <?php _e( "the e-mail" , $d ) ?> <?php _e( "as link" , $d ) ?>"
 		]
