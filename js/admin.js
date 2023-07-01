@@ -54,7 +54,7 @@ window.addEventListener( "load" , function() {
 
 // add element
 
-const buttons = document.getElementById( "db_add_buttons" ).getElementsByTagName( "a" )
+const buttons = document.getElementById( "db_settings_add_buttons" ).getElementsByTagName( "a" )
 
 const dbButtonPressed = e => {
 
@@ -62,13 +62,13 @@ const dbButtonPressed = e => {
 
     switch (id)
     {
-        case "db_add_phone" :
+        case "db_settings_add_phone" :
             dbAddPhone();
             break;
-        case "db_add_whatsapp" :
+        case "db_settings_add_whatsapp" :
             dbAddWhatsapp();
             break;
-        case "db_add_email" :
+        case "db_settings_add_email" :
             dbAddEmail();
             break;
     }
@@ -112,9 +112,72 @@ function dbAddPhone() {
 }
 
 function dbAddWhatsapp() {
-    console.log( 'whatsapp ' + numWhatsapps )
+    let i = numWhatsapps
+
+    const refElement_1 = document.getElementById( "whatsapp_" + (i - 1) + "_3" )
+    let newrow_1 = document.createElement("tr")
+
+    newrow_1.setAttribute( "id",  "whatsapp_" + i + "_1" )
+    newrow_1.style.verticalAlign = "top"
+    newrow_1.innerHTML = 
+        '<th scope="row" rowspan="3">' + dbSettingsDescriptions[ "whatsapp" ][ 0 ] + ' ' + (i + 1) + '</th>' +
+        '<td rowspan="3"><input type="text" name="whatsapp_' + i + '" id="db_settings_whatsapp_' + i + '" size="20" value="" /></td>' +
+        '<td>[db-whatsapp' + (i + 1) + ']</td>' +
+        '<td id="whatsapp_' + i + '_1_description">' + dbSettingsDescriptions[ "whatsapp" ][ 1 ] + '</td>' +
+        '<td></td>'
+    refElement_1.parentNode.insertBefore(newrow_1, refElement_1.nextSibling)
+
+    const refElement_2 = document.getElementById( "whatsapp_" + i + "_1" )
+    let newrow_2 = document.createElement("tr")
+
+    newrow_2.setAttribute( "id",  "whatsapp_" + i + "_2" )
+    newrow_2.style.verticalAlign = "top"
+    newrow_2.innerHTML = 
+        '<td>[db-whatsapp' + (i + 1) + '-link]</td>' +
+        '<td id="whatsapp_' + i + '_2_description">' + dbSettingsDescriptions[ "whatsapp" ][ 2 ] + '</td>' +
+        '<td></td>'
+    refElement_2.parentNode.insertBefore(newrow_2, refElement_2.nextSibling)
+
+    const refElement_3 = document.getElementById( "whatsapp_" + i + "_2" )
+    let newrow_3 = document.createElement("tr")
+
+    newrow_3.setAttribute( "id",  "whatsapp_" + i + "_3" )
+    newrow_3.style.verticalAlign = "top"
+    newrow_3.innerHTML = 
+        '<td>[db-whatsapp' + (i + 1) + '-href]</td>' +
+        '<td id="whatsapp_' + i + '_3_description">' + dbSettingsDescriptions[ "whatsapp" ][ 3 ] + '</td>' +
+        '<td></td>'
+    refElement_3.parentNode.insertBefore(newrow_3, refElement_3.nextSibling)
+
+    numWhatsapps++
 }
 
 function dbAddEmail() {
-    console.log( 'email ' + numEmails )
+    let i = numEmails
+
+    const refElement_1 = document.getElementById( "email_" + (i - 1) + "_2" )
+    let newrow_1 = document.createElement("tr")
+
+    newrow_1.setAttribute( "id",  "email_" + i + "_1" )
+    newrow_1.style.verticalAlign = "top"
+    newrow_1.innerHTML = 
+        '<th scope="row" rowspan="2">' + dbSettingsDescriptions[ "email" ][ 0 ] + ' ' + (i + 1) + '</th>' +
+        '<td rowspan="2"><input type="text" name="email_' + i + '" id="db_settings_email_' + i + '" size="20" value="" /></td>' +
+        '<td>[db-email' + (i + 1) + ']</td>' +
+        '<td id="email_' + i + '_1_description">' + dbSettingsDescriptions[ "email" ][ 1 ] + '</td>' +
+        '<td></td>'
+    refElement_1.parentNode.insertBefore(newrow_1, refElement_1.nextSibling)
+
+    const refElement_2 = document.getElementById( "email_" + i + "_1" )
+    let newrow_2 = document.createElement("tr")
+
+    newrow_2.setAttribute( "id",  "email_" + i + "_2" )
+    newrow_2.style.verticalAlign = "top"
+    newrow_2.innerHTML = 
+        '<td>[db-email' + (i + 1) + '-link]</td>' +
+        '<td id="email_' + i + '_2_description">' + dbSettingsDescriptions[ "email" ][ 2 ] + '</td>' +
+        '<td></td>'
+    refElement_2.parentNode.insertBefore(newrow_2, refElement_2.nextSibling)
+
+    numEmails++
 }

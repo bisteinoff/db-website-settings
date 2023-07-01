@@ -75,9 +75,7 @@
 	<div class="db-settings-description">
 		<p><?php _e( "The plugin is used for the basic website settings" , $d ) ?></p>
 	</div>
-	<?php print_r($db_settings_phone); ?><br />
-	<?php print_r($db_settings_whatsapp); ?><br />
-	<?php print_r($db_settings_email); ?><br />
+
 	<h2><?php _e( "Settings" , $d ) ?></h2>
 
 	<form name="db-settings" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>?page=db-settings&amp;updated=true">
@@ -109,7 +107,7 @@
 				// Phones
 				$i = -1;
 				while ( $db_settings_phone[ ++$i ] ) :
-					if ( $i > 0 ) $ext = $i + 1;
+					$ext = $i > 0 ? $i + 1 : '';
 				?>
 				<tr id="phone_<?php echo $i ?>_1" valign="top">
 					<th scope="row" rowspan="2">
@@ -145,7 +143,7 @@
 				// Whatsapp Chats
 				$i = -1;
 				while ( $db_settings_whatsapp[ ++$i ] ) :
-					if ( $i > 0 ) $ext = $i + 1;
+					$ext = $i > 0 ? $i + 1 : '';
 			?>
 				<tr id="whatsapp_<?php echo $i ?>_1" valign="top">
 					<th scope="row" rowspan="3">
@@ -191,7 +189,7 @@
 				// E-mails
 				$i = -1;
 				while ( $db_settings_email[ ++$i ] ) :
-					if ( $i > 0 ) $ext = $i + 1;
+					$ext = $i > 0 ? $i + 1 : '';
 			?>
 				<tr id="email_<?php echo $i ?>_1" valign="top">
 					<th scope="row" rowspan="2">
@@ -225,10 +223,10 @@
 			?>
 		</table>
 
-		<div id="db_add_buttons">
-			<a id="db_add_phone"><?php _e( "Add Phone" , $d ) ?></a>
-			<a id="db_add_whatsapp"><?php _e( "Add Whatsapp" , $d ) ?></a>
-			<a id="db_add_email"><?php _e( "Add E-mail" , $d ) ?></a>
+		<div id="db_settings_add_buttons">
+			<a id="db_settings_add_phone"><?php _e( "Add Phone" , $d ) ?></a>
+			<a id="db_settings_add_whatsapp"><?php _e( "Add Whatsapp" , $d ) ?></a>
+			<a id="db_settings_add_email"><?php _e( "Add E-mail" , $d ) ?></a>
 		</div>
 
 		<input type="hidden" name="action" value="update" />

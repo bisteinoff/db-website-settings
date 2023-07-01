@@ -3,7 +3,7 @@
 Plugin Name: DB Website Settings
 Plugin URI: https://github.com/bisteinoff/db-website-settings
 Description: The plugin is used for the basic website settings
-Version: 2.0.1
+Version: 2.0.2
 Author: Denis Bisteinov
 Author URI: https://bisteinoff.com
 Text Domain: db-website-settings
@@ -48,8 +48,8 @@ License: GPL2
 			add_action( 'admin_menu', array (&$this, 'admin') );
 
 			add_action( 'admin_footer', function() {
-							wp_enqueue_style( $this -> thisdir() . '-admin', plugin_dir_url( __FILE__ ) . 'css/admin.css' );
-							wp_enqueue_script( $this -> thisdir() . '-admin', plugin_dir_url( __FILE__ ) . 'js/admin.js', null, false, true );
+							wp_enqueue_style( $this -> thisdir() . '-admin', plugin_dir_url( __FILE__ ) . 'css/admin.min.css' );
+							wp_enqueue_script( $this -> thisdir() . '-admin', plugin_dir_url( __FILE__ ) . 'js/admin.min.js', null, false, true );
 						},
 						99
 			);
@@ -60,7 +60,7 @@ License: GPL2
 				$i = 0;
 				while ( $option = sanitize_text_field ( get_option( 'db_settings_phone_' . $i ) ) )
 				{
-					if ( $i > 0 ) $ext = $i + 1;
+					$ext = $i > 0 ? $i + 1 : '';
 
 					// Phone Plain Text
 					add_shortcode('db-phone' . $ext, function() use ($option) {
@@ -85,7 +85,7 @@ License: GPL2
 				$i = 0;
 				while ( $option = sanitize_text_field ( get_option( 'db_settings_whatsapp_' . $i ) ) )
 				{
-					if ( $i > 0 ) $ext = $i + 1;
+					$ext = $i > 0 ? $i + 1 : '';
 
 					// Whatsapp Plain Text
 					add_shortcode('db-whatsapp' . $ext, function() use ($option) {
@@ -110,7 +110,7 @@ License: GPL2
 				$i = 0;
 				while ( $option = sanitize_text_field ( get_option( 'db_settings_email_' . $i ) ) )
 				{
-					if ( $i > 0 ) $ext = $i + 1;
+					$ext = $i > 0 ? $i + 1 : '';
 
 					// E-mail Plain Text
 					add_shortcode('db-email' . $ext, function() use ($option) {

@@ -4,7 +4,7 @@ Donate link: https://bisteinoff.com
 Tags: wordpress, website, settings, shortcodes, phone, whatsapp, email
 Requires at least: 4.6
 Tested up to: 6.2
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GPL2
 
 The plugin is used for the basic website settings
@@ -30,7 +30,7 @@ You can use shortcodes for phone number, whatsapp, and e-mail, and insert them w
 = 2.0 =
 * The possibility to add several phone numbers, whatsapp chats, e-mails
 * Compatible with GlotPress
-* Code optimized
+* Code optimized, CSS/JS minified
 
 = 1.1 =
 * New options
