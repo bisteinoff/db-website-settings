@@ -3,6 +3,29 @@
 	$baseObj = new dbSettings();
 	$d = $baseObj -> thisdir(); // domain for translate.wordpress.org
 
+	// multisite compatibility
+	if ( is_multisite() ) {
+
+		$blog_id = get_current_blog_id();
+
+		if ( $blog_id !== 1 ) {
+
+			switch_to_blog( 1 );
+
+			$url = esc_url ( add_query_arg (
+				'page',
+				$d,
+				get_admin_url() . 'index.php'
+			) );
+
+			restore_current_blog();
+
+			if ( wp_redirect( $url ) ) {
+				exit;
+			}
+		}
+	}
+
 
 	// getting the values of the options
 	$i = 0;
