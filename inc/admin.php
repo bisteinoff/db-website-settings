@@ -3,29 +3,10 @@
 	$baseObj = new dbSettings();
 	$d = $baseObj -> thisdir(); // domain for translate.wordpress.org
 
-	// multisite compatibility
-	if ( is_multisite() ) {
-
-		$blog_id = get_current_blog_id();
-
-		if ( $blog_id !== 1 ) {
-
-			switch_to_blog( 1 );
-
-			$url = esc_url ( add_query_arg (
-				'page',
-				$d,
-				get_admin_url() . 'index.php'
-			) );
-
-			restore_current_blog();
-
-			if ( wp_redirect( $url ) ) {
-				exit;
-			}
-		}
-	}
-
+	// if there is not yet a phone/whatsapp/email
+	$db_settings_phone[ 0 ] = '';
+	$db_settings_whatsapp[ 0 ] = '';
+	$db_settings_email[ 0 ] = '';
 
 	// getting the values of the options
 	$i = 0;
@@ -129,7 +110,8 @@
 			<?php
 				// Phones
 				$i = -1;
-				while ( $db_settings_phone[ ++$i ] ) :
+				foreach ( $db_settings_phone as $value ) {
+					$i++;
 					$ext = $i > 0 ? $i + 1 : '';
 				?>
 				<tr id="phone_<?php echo $i ?>_1" valign="top">
@@ -138,7 +120,7 @@
 					</th>
 					<td rowspan="2">
 						<input type="text" name="phone_<?php echo $i ?>" id="db_settings_phone_<?php echo $i ?>"
-								size="20" value="<?php echo $db_settings_phone[ $i ]; ?>" />
+								size="20" value="<?php echo $value ?>" />
 					</td>
 					<td>
 						[db-phone<?php echo $ext ?>]
@@ -160,12 +142,14 @@
 					</td>
 				</tr>
 			<?php
-				endwhile; // .Phones
+				}
+				unset($value); // .Phones
 
 
 				// Whatsapp Chats
 				$i = -1;
-				while ( $db_settings_whatsapp[ ++$i ] ) :
+				foreach ( $db_settings_whatsapp as $value ) {
+					$i++;
 					$ext = $i > 0 ? $i + 1 : '';
 			?>
 				<tr id="whatsapp_<?php echo $i ?>_1" valign="top">
@@ -174,7 +158,7 @@
 					</th>
 					<td rowspan="3">
 						<input type="text" name="whatsapp_<?php echo $i ?>" id="db_settings_whatsapp_<?php echo $i ?>"
-								size="20" value="<?php echo $db_settings_whatsapp[ $i ]; ?>" />
+								size="20" value="<?php echo $value ?>" />
 					</td>
 					<td>
 						[db-whatsapp<?php echo $ext ?>]
@@ -206,12 +190,14 @@
 					</td>
 				</tr>
 			<?php
-				endwhile; // .Whatsapp Chats
+				}
+				unset($value); // .Whatsapp Chats
 
 
 				// E-mails
 				$i = -1;
-				while ( $db_settings_email[ ++$i ] ) :
+				foreach ( $db_settings_email as $value ) {
+					$i++;
 					$ext = $i > 0 ? $i + 1 : '';
 			?>
 				<tr id="email_<?php echo $i ?>_1" valign="top">
@@ -220,7 +206,7 @@
 					</th>
 					<td rowspan="2">
 						<input type="text" name="email_<?php echo $i ?>" id="db_settings_email_<?php echo $i ?>"
-								size="20" value="<?php echo $db_settings_email[ $i ]; ?>" />
+								size="20" value="<?php echo $value ?>" />
 					</td>
 					<td>
 						[db-email<?php echo $ext ?>]
@@ -242,7 +228,8 @@
 					</td>
 				</tr>
 			<?php
-				endwhile; // .E-mails
+				}
+				unset($value); // .E-mails
 			?>
 		</table>
 
