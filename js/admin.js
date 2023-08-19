@@ -19,9 +19,11 @@ window.addEventListener( "load" , function() {
     {
         const phone_desc_1 = document.getElementById( "phone_" + i + "_1_description" )
         const phone_desc_2 = document.getElementById( "phone_" + i + "_2_description" )
+        const phone_desc_3 = document.getElementById( "phone_" + i + "_3_description" )
 
         phone_desc_1.innerText = dbSettingsDescriptions[ "phone" ][ 1 ]
         phone_desc_2.innerText = dbSettingsDescriptions[ "phone" ][ 2 ]
+        phone_desc_3.innerText = dbSettingsDescriptions[ "phone" ][ 3 ]
         numPhones = ++i
     }
 
@@ -84,14 +86,14 @@ for (let button of buttons) {
 function dbAddPhone() {
     let i = numPhones
 
-    const refElement_1 = document.getElementById( "phone_" + (i - 1) + "_2" )
+    const refElement_1 = document.getElementById( "phone_" + (i - 1) + "_3" )
     let newrow_1 = document.createElement("tr")
 
     newrow_1.setAttribute( "id",  "phone_" + i + "_1" )
     newrow_1.style.verticalAlign = "top"
     newrow_1.innerHTML = 
-        '<th scope="row" rowspan="2">' + dbSettingsDescriptions[ "phone" ][ 0 ] + ' ' + (i + 1) + '</th>' +
-        '<td rowspan="2"><input type="text" name="phone_' + i + '" id="db_settings_phone_' + i + '" size="20" value="" /></td>' +
+        '<th scope="row" rowspan="3">' + dbSettingsDescriptions[ "phone" ][ 0 ] + ' ' + (i + 1) + '</th>' +
+        '<td rowspan="3"><input type="text" name="phone_' + i + '" id="db_settings_phone_' + i + '" size="20" value="" /></td>' +
         '<td>[db-phone' + (i + 1) + ']</td>' +
         '<td id="phone_' + i + '_1_description">' + dbSettingsDescriptions[ "phone" ][ 1 ] + '</td>' +
         '<td></td>'
@@ -107,6 +109,17 @@ function dbAddPhone() {
         '<td id="phone_' + i + '_2_description">' + dbSettingsDescriptions[ "phone" ][ 2 ] + '</td>' +
         '<td></td>'
     refElement_2.parentNode.insertBefore(newrow_2, refElement_2.nextSibling)
+
+    const refElement_3 = document.getElementById( "phone_" + i + "_2" )
+    let newrow_3 = document.createElement("tr")
+
+    newrow_3.setAttribute( "id",  "phone_" + i + "_3" )
+    newrow_3.style.verticalAlign = "top"
+    newrow_3.innerHTML = 
+        '<td>[db-phone' + (i + 1) + '-href]</td>' +
+        '<td id="phone_' + i + '_3_description">' + dbSettingsDescriptions[ "phone" ][ 3 ] + '</td>' +
+        '<td></td>'
+    refElement_3.parentNode.insertBefore(newrow_3, refElement_3.nextSibling)
 
     numPhones++
 }

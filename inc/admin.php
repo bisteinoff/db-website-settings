@@ -1,5 +1,7 @@
 <?php // THE SETTINGS PAGE
 
+	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 	$baseObj = new dbSettings();
 	$d = $baseObj -> thisdir(); // domain for translate.wordpress.org
 
@@ -33,21 +35,21 @@
 
 	// getting the values of the options
 	$i = 0;
-	while ( $option = sanitize_text_field ( get_option( 'db_settings_phone_' . $i ) ) )
+	while ( $option = esc_html ( sanitize_text_field ( get_option( 'db_settings_phone_' . $i ) ) ) )
 	{
 		$db_settings_phone[ $i ] = $option;
 		$i++;
 	}
 
 	$i = 0;
-	while ( $option = sanitize_text_field ( get_option( 'db_settings_whatsapp_' . $i ) ) )
+	while ( $option = esc_html ( sanitize_text_field ( get_option( 'db_settings_whatsapp_' . $i ) ) ) )
 	{
 		$db_settings_whatsapp[ $i ] = $option;
 		$i++;
 	}
 
 	$i = 0;
-	while ( $option = sanitize_text_field ( get_option( 'db_settings_email_' . $i ) ) )
+	while ( $option = esc_html ( sanitize_text_field ( get_option( 'db_settings_email_' . $i ) ) ) )
 	{
 		$db_settings_email[ $i ] = $option;
 		$i++;
@@ -67,7 +69,7 @@
 
 		// Phone
 		$i = 0;
-		while ( $option = sanitize_text_field ( $_POST[ 'phone_' . $i ] ) )
+		while ( $option = esc_html ( sanitize_text_field ( $_POST[ 'phone_' . $i ] ) ) )
 		{
 			$db_settings_phone[ $i ] = $option;
 			update_option ( 'db_settings_phone_'. $i , $db_settings_phone[ $i ] );
@@ -76,7 +78,7 @@
 
 		// Whatsapp
 		$i = 0;
-		while ( $option = sanitize_text_field ( $_POST[ 'whatsapp_' . $i ] ) )
+		while ( $option = esc_html ( sanitize_text_field ( $_POST[ 'whatsapp_' . $i ] ) ) )
 		{
 			$db_settings_whatsapp[ $i ] = $option;
 			update_option ( 'db_settings_whatsapp_'. $i , $db_settings_whatsapp[ $i ] );
@@ -85,7 +87,7 @@
 
 		// E-mail
 		$i = 0;
-		while ( $option = sanitize_email ( $_POST[ 'email_' . $i ] ) )
+		while ( $option = esc_html ( sanitize_email ( $_POST[ 'email_' . $i ] ) ) )
 		{
 			$db_settings_email[ $i ] = $option;
 			update_option ( 'db_settings_email_'. $i , $db_settings_email[ $i ] );
@@ -105,7 +107,7 @@
 
 	<h2><?php _e( "Settings" , $d ) ?></h2>
 
-	<form name="db-settings" method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>?page=db-settings&amp;updated=true">
+	<form name="db-settings" method="post" action="<?php echo esc_html ( $_SERVER['PHP_SELF'] ) ?>?page=<?php echo esc_html ( $d ) ?>&amp;updated=true">
 
 		<?php
 			if (function_exists ('wp_nonce_field') )
@@ -138,10 +140,10 @@
 					$ext = $i > 0 ? $i + 1 : '';
 				?>
 				<tr id="phone_<?php echo $i ?>_1" valign="top">
-					<th scope="row" rowspan="2">
+					<th scope="row" rowspan="3">
 						<?php _e( "Phone" , $d ) ?> <?php echo $ext ?>
 					</th>
-					<td rowspan="2">
+					<td rowspan="3">
 						<input type="text" name="phone_<?php echo $i ?>" id="db_settings_phone_<?php echo $i ?>"
 								size="20" value="<?php echo $value ?>" />
 					</td>
@@ -162,6 +164,16 @@
 					</td>
 					<td>
 						<?php echo do_shortcode("[db-phone" . $ext . "-link]"); ?>
+					</td>
+				</tr>
+				<tr id="phone_<?php echo $i ?>_3" valign="top">
+					<td>
+						[db-phone<?php echo $ext ?>-href]
+					</td>
+					<td id="phone_<?php echo $i ?>_3_description">
+					</td>
+					<td>
+						<?php echo do_shortcode("[db-phone" . $ext . "-href]"); ?>
 					</td>
 				</tr>
 			<?php
@@ -277,13 +289,14 @@
 		"phone" : [
 			"<?php _e( "Phone" , $d ) ?>",
 			"<?php _e( "insert" , $d ) ?> <?php _e( "the phone number" , $d ) ?> <?php _e( "as text" , $d ) ?>",
-			"<?php _e( "insert" , $d ) ?> <?php _e("the phone number" , $d ) ?> <?php _e( "as link" , $d ) ?>"
+			"<?php _e( "insert" , $d ) ?> <?php _e("the phone number" , $d ) ?> <?php _e( "as link" , $d ) ?>",
+			"<?php _e( "insert" , $d ) ?> <?php _e("the href parameter of the phone number" , $d ) ?>"
 		],
 		"whatsapp" : [
 			"<?php _e( "Whatsapp" , $d ) ?>",
 			"<?php _e( "insert" , $d ) ?> <?php _e( "the whatsapp number" , $d ) ?> <?php _e( "as text" , $d ) ?>",
 			"<?php _e( "insert" , $d ) ?> <?php _e( "the whatsapp number" , $d ) ?> <?php _e( "as link" , $d ) ?>",
-			"<?php _e( "insert" , $d ) ?> <?php _e( "the href parametr of the whatsapp number" , $d ) ?>"
+			"<?php _e( "insert" , $d ) ?> <?php _e( "the href parameter of the whatsapp number" , $d ) ?>"
 		],
 		"email" : [
 			"<?php _e( "E-mail" , $d ) ?>",

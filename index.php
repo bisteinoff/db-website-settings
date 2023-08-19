@@ -3,7 +3,7 @@
 Plugin Name: DB Website Settings
 Plugin URI: https://github.com/bisteinoff/db-website-settings
 Description: The plugin is used for the basic website settings
-Version: 2.1.1
+Version: 2.2
 Author: Denis Bisteinov
 Author URI: https://bisteinoff.com
 Text Domain: db-website-settings
@@ -25,6 +25,8 @@ License: GPL2
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+
+	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 	class dbSettings
 
@@ -61,7 +63,13 @@ License: GPL2
 
 				// Phones
 				$i = 0;
-				while ( $option = sanitize_text_field ( get_option( 'db_settings_phone_' . $i ) ) )
+				$db_remove_chars = array(
+					" ",
+					"(",
+					")",
+					"-"
+				);
+				while ( $option = esc_html ( sanitize_text_field ( get_option( 'db_settings_phone_' . $i ) ) ) )
 				{
 					$ext = $i > 0 ? $i + 1 : '';
 
@@ -71,13 +79,23 @@ License: GPL2
 					});
 
 					// Phone As Link
-					add_shortcode('db-phone' . $ext . '-link', function() use ($option) {
+					add_shortcode('db-phone' . $ext . '-link', function() use ($option, $db_remove_chars) {
 						$link = str_replace(
-							array( " ", "(", ")" ),
+							$db_remove_chars,
 							'',
 							$option
 						);
 						return "<a href=\"tel:{$link}\">{$option}</a>"; 
+					});
+
+					// Phone As Link
+					add_shortcode('db-phone' . $ext . '-href', function() use ($option, $db_remove_chars) {
+						$link = str_replace(
+							$db_remove_chars,
+							'',
+							$option
+						);
+						return $link;
 					});
 
 					$i++;
@@ -86,7 +104,7 @@ License: GPL2
 
 				// Whatsapp Chats
 				$i = 0;
-				while ( $option = sanitize_text_field ( get_option( 'db_settings_whatsapp_' . $i ) ) )
+				while ( $option = esc_html ( sanitize_text_field ( get_option( 'db_settings_whatsapp_' . $i ) ) ) )
 				{
 					$ext = $i > 0 ? $i + 1 : '';
 
@@ -111,7 +129,7 @@ License: GPL2
 
 				// Whatsapp Chats
 				$i = 0;
-				while ( $option = sanitize_text_field ( get_option( 'db_settings_email_' . $i ) ) )
+				while ( $option = esc_html ( sanitize_text_field ( get_option( 'db_settings_email_' . $i ) ) ) )
 				{
 					$ext = $i > 0 ? $i + 1 : '';
 
@@ -144,7 +162,7 @@ License: GPL2
 
 				case "href" :
 					$href = str_replace(
-						array( " ", "(", ")", "+" ),
+						array( " ", "(", ")", "-", "+" ),
 						'',
 						$whatsapp
 					);
