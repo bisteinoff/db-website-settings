@@ -3,7 +3,7 @@
 Plugin Name: DB Website Settings
 Plugin URI: https://github.com/bisteinoff/db-website-settings
 Description: The plugin is used for the basic website settings
-Version: 2.2
+Version: 2.3
 Author: Denis Bisteinov
 Author URI: https://bisteinoff.com
 Text Domain: db-website-settings
@@ -37,7 +37,7 @@ License: GPL2
 			return basename( __DIR__ );
 		}
 
-		function dbSettings()
+		function __construct()
 		{
 
 			add_option( 'db_settings_phone_0' );

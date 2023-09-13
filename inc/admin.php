@@ -57,15 +57,14 @@
 
 
 	// form submit
-	if ( isset ( $_POST['submit'] ) )
+	if ( isset ( $_POST['submit'] ) && 
+	isset( $_POST[ $d . '_nonce' ] ) &&
+	wp_verify_nonce( $_POST[ $d . '_nonce' ], $d ) )
 	{
 
 		if ( function_exists('current_user_can') &&
 			 !current_user_can('manage_options') )
 				die( _e( "Error: You do not have the permission to update the value" , $d ) );
-
-		if ( function_exists('check_admin_referrer') )
-			check_admin_referrer('db_settings_form');
 
 		// Phone
 		$i = 0;
@@ -107,12 +106,7 @@
 
 	<h2><?php _e( "Settings" , $d ) ?></h2>
 
-	<form name="db-settings" method="post" action="<?php echo esc_html ( $_SERVER['PHP_SELF'] ) ?>?page=<?php echo esc_html ( $d ) ?>&amp;updated=true">
-
-		<?php
-			if (function_exists ('wp_nonce_field') )
-				wp_nonce_field('db_settings_form');
-		?>
+	<form name="db-settings" method="post" action="<?php echo esc_html( sanitize_text_field( $_SERVER['PHP_SELF'] ) ) ?>?page=<?php echo esc_html( sanitize_text_field( $d ) ) ?>&amp;updated=true">
 
 		<table id="db-settings-table" class="form-table db-settings-table" width="100%">
 			<tr valign="top">
@@ -139,38 +133,38 @@
 					$i++;
 					$ext = $i > 0 ? $i + 1 : '';
 				?>
-				<tr id="phone_<?php echo $i ?>_1" valign="top">
+				<tr id="phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_1" valign="top">
 					<th scope="row" rowspan="3">
-						<?php _e( "Phone" , $d ) ?> <?php echo $ext ?>
+						<?php _e( "Phone" , $d ) ?> <?php echo esc_html( sanitize_text_field( $ext ) ) ?>
 					</th>
 					<td rowspan="3">
-						<input type="text" name="phone_<?php echo $i ?>" id="db_settings_phone_<?php echo $i ?>"
-								size="20" value="<?php echo $value ?>" />
+						<input type="text" name="phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>" id="db_settings_phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>"
+								size="20" value="<?php echo esc_html( sanitize_text_field( $value ) ) ?>" />
 					</td>
 					<td>
-						[db-phone<?php echo $ext ?>]
+						[db-phone<?php echo esc_html( sanitize_text_field( $ext ) ) ?>]
 					</td>
-					<td id="phone_<?php echo $i ?>_1_description">
+					<td id="phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_1_description">
 					</td>
 					<td>
 						<?php echo do_shortcode("[db-phone" . $ext . "]"); ?>
 					</td>
 				</tr>
-				<tr id="phone_<?php echo $i ?>_2" valign="top">
+				<tr id="phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_2" valign="top">
 					<td>
-						[db-phone<?php echo $ext ?>-link]
+						[db-phone<?php echo esc_html( sanitize_text_field( $ext ) ) ?>-link]
 					</td>
-					<td id="phone_<?php echo $i ?>_2_description">
+					<td id="phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_2_description">
 					</td>
 					<td>
 						<?php echo do_shortcode("[db-phone" . $ext . "-link]"); ?>
 					</td>
 				</tr>
-				<tr id="phone_<?php echo $i ?>_3" valign="top">
+				<tr id="phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_3" valign="top">
 					<td>
-						[db-phone<?php echo $ext ?>-href]
+						[db-phone<?php echo esc_html( sanitize_text_field( $ext ) ) ?>-href]
 					</td>
-					<td id="phone_<?php echo $i ?>_3_description">
+					<td id="phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_3_description">
 					</td>
 					<td>
 						<?php echo do_shortcode("[db-phone" . $ext . "-href]"); ?>
@@ -187,38 +181,38 @@
 					$i++;
 					$ext = $i > 0 ? $i + 1 : '';
 			?>
-				<tr id="whatsapp_<?php echo $i ?>_1" valign="top">
+				<tr id="whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_1" valign="top">
 					<th scope="row" rowspan="3">
-						<?php _e( "Whatsapp" , $d ) ?> <?php echo $ext ?>
+						<?php _e( "Whatsapp" , $d ) ?> <?php echo esc_html( sanitize_text_field( $ext ) ) ?>
 					</th>
 					<td rowspan="3">
-						<input type="text" name="whatsapp_<?php echo $i ?>" id="db_settings_whatsapp_<?php echo $i ?>"
-								size="20" value="<?php echo $value ?>" />
+						<input type="text" name="whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>" id="db_settings_whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>"
+								size="20" value="<?php echo esc_html( sanitize_text_field( $value ) ) ?>" />
 					</td>
 					<td>
-						[db-whatsapp<?php echo $ext ?>]
+						[db-whatsapp<?php echo esc_html( sanitize_text_field( $ext ) ) ?>]
 					</td>
-					<td id="whatsapp_<?php echo $i ?>_1_description">
+					<td id="whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_1_description">
 					</td>
 					<td>
 						<?php echo do_shortcode("[db-whatsapp" . $ext . "]"); ?>
 					</td>
 				</tr>
-				<tr id="whatsapp_<?php echo $i ?>_2" valign="top">
+				<tr id="whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_2" valign="top">
 					<td>
-						[db-whatsapp<?php echo $ext ?>-link]
+						[db-whatsapp<?php echo esc_html( sanitize_text_field( $ext ) ) ?>-link]
 					</td>
-					<td id="whatsapp_<?php echo $i ?>_2_description">
+					<td id="whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_2_description">
 					</td>
 					<td>
 						<?php echo do_shortcode("[db-whatsapp" . $ext . "-link]"); ?>
 					</td>
 				</tr>
-				<tr id="whatsapp_<?php echo $i ?>_3" valign="top">
+				<tr id="whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_3" valign="top">
 					<td>
-						[db-whatsapp<?php echo $ext ?>-href]
+						[db-whatsapp<?php echo esc_html( sanitize_text_field( $ext ) ) ?>-href]
 					</td>
-					<td id="whatsapp_<?php echo $i ?>_3_description">
+					<td id="whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_3_description">
 					</td>
 					<td>
 						<?php echo do_shortcode("[db-whatsapp" . $ext . "-href]"); ?>
@@ -235,28 +229,28 @@
 					$i++;
 					$ext = $i > 0 ? $i + 1 : '';
 			?>
-				<tr id="email_<?php echo $i ?>_1" valign="top">
+				<tr id="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_1" valign="top">
 					<th scope="row" rowspan="2">
-						<?php _e( "E-mail" , $d ) ?> <?php echo $ext ?>
+						<?php _e( "E-mail" , $d ) ?> <?php echo esc_html( sanitize_text_field( $ext ) ) ?>
 					</th>
 					<td rowspan="2">
-						<input type="text" name="email_<?php echo $i ?>" id="db_settings_email_<?php echo $i ?>"
-								size="20" value="<?php echo $value ?>" />
+						<input type="text" name="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>" id="db_settings_email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>"
+								size="20" value="<?php echo esc_html( sanitize_text_field( $value ) ) ?>" />
 					</td>
 					<td>
-						[db-email<?php echo $ext ?>]
+						[db-email<?php echo esc_html( sanitize_text_field( $ext ) ) ?>]
 					</td>
-					<td id="email_<?php echo $i ?>_1_description">
+					<td id="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_1_description">
 					</td>
 					<td>
 						<?php echo do_shortcode("[db-email" . $ext . "]"); ?>
 					</td>
 				</tr>
-				<tr id="email_<?php echo $i ?>_2" valign="top">
+				<tr id="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_2" valign="top">
 					<td>
-						[db-email<?php echo $ext ?>-link]
+						[db-email<?php echo esc_html( sanitize_text_field( $ext ) ) ?>-link]
 					</td>
-					<td id="email_<?php echo $i ?>_2_description">
+					<td id="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_2_description">
 					</td>
 					<td>
 						<?php echo do_shortcode("[db-email-link" . $ext . "]"); ?>
@@ -276,7 +270,9 @@
 
 		<input type="hidden" name="action" value="update" />
 
-		<input type="hidden" name="page_options" value="db_tagcloud_cols" />
+		<?php $nonce = wp_create_nonce( $d ); ?>
+
+		<input type="hidden" name="<?php echo esc_html( sanitize_text_field( $d ) ) ?>_nonce" value="<?php echo esc_html( sanitize_text_field( $nonce ) ) ?>" />
 
 		<?php submit_button(); ?>
 
