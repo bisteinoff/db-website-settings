@@ -1,9 +1,9 @@
 === DB Website Settings ===
 Contributors: Denis Bisteinov
 Donate link: https://bisteinoff.com
-Tags: wordpress, website, settings, shortcodes, phone, whatsapp, email
+Tags: wordpress, website, settings, shortcodes, phone, whatsapp, telegram, email
 Requires at least: 4.6
-Tested up to: 6.2
+Tested up to: 6.4
 Stable tag: 2.3
 License: GPL2
 
@@ -23,9 +23,14 @@ DB Website Settings is an easy solution to make basic settings on your website
 
 = Why is it useful for my website? =
 
-You can use shortcodes for phone number, whatsapp, and e-mail, and insert them where needed. If once you need to change them, they will be changed automatically everywhere, where you had inserted them using the shortcodes.
+You can use shortcodes for phone number, whatsapp, telegram, and e-mail, and insert them where needed. If once you need to change them, they will be changed automatically everywhere, where you had inserted them using the shortcodes.
 
 == Changelog ==
+
+= 2.4 =
+
+* The possibility to add several telegram chats
+* Security issues
 
 = 2.3 =
 * Security issues

@@ -4,6 +4,7 @@
 
 let numPhones = 1     // amount of phone numbers
 let numWhatsapps = 1  // amount of whatsapp chats
+let numTelegram = 1  // amount of telegram chats
 let numEmails = 1     // amount of emails
 
 
@@ -11,7 +12,7 @@ let numEmails = 1     // amount of emails
 
 window.addEventListener( "load" , function() {
 
-    let phone, whatsapp, email
+    let phone, whatsapp, telegram, email
     let i
 
     i = 0
@@ -38,6 +39,19 @@ window.addEventListener( "load" , function() {
         whatsapp_desc_2.innerText = dbSettingsDescriptions[ "whatsapp" ][ 2 ]
         whatsapp_desc_3.innerText = dbSettingsDescriptions[ "whatsapp" ][ 3 ]
         numWhatsapps = ++i
+    }
+
+    i = 0
+    while ( telegram = document.getElementById( "telegram_" + i + "_1" ) )
+    {
+        const telegram_desc_1 = document.getElementById( "telegram_" + i + "_1_description" )
+        const telegram_desc_2 = document.getElementById( "telegram_" + i + "_2_description" )
+        const telegram_desc_3 = document.getElementById( "telegram_" + i + "_3_description" )
+
+        telegram_desc_1.innerText = dbSettingsDescriptions[ "telegram" ][ 1 ]
+        telegram_desc_2.innerText = dbSettingsDescriptions[ "telegram" ][ 2 ]
+        telegram_desc_3.innerText = dbSettingsDescriptions[ "telegram" ][ 3 ]
+        numTelegram = ++i
     }
 
     i = 0
@@ -69,6 +83,9 @@ const dbButtonPressed = e => {
             break;
         case "db_settings_add_whatsapp" :
             dbAddWhatsapp();
+            break;
+        case "db_settings_add_telegram" :
+            dbAddTelegram();
             break;
         case "db_settings_add_email" :
             dbAddEmail();
@@ -163,6 +180,47 @@ function dbAddWhatsapp() {
     refElement_3.parentNode.insertBefore(newrow_3, refElement_3.nextSibling)
 
     numWhatsapps++
+}
+
+function dbAddTelegram() {
+    let i = numTelegram
+
+    const refElement_1 = document.getElementById( "telegram_" + (i - 1) + "_3" )
+    let newrow_1 = document.createElement("tr")
+
+    newrow_1.setAttribute( "id",  "telegram_" + i + "_1" )
+    newrow_1.style.verticalAlign = "top"
+    newrow_1.innerHTML = 
+        '<th scope="row" rowspan="3">' + dbSettingsDescriptions[ "telegram" ][ 0 ] + ' ' + (i + 1) + '</th>' +
+        '<td rowspan="3"><input type="text" name="telegram_' + i + '" id="db_settings_telegram_' + i + '" size="20" value="" /></td>' +
+        '<td>[db-telegram' + (i + 1) + ']</td>' +
+        '<td id="telegram_' + i + '_1_description">' + dbSettingsDescriptions[ "telegram" ][ 1 ] + '</td>' +
+        '<td></td>'
+    refElement_1.parentNode.insertBefore(newrow_1, refElement_1.nextSibling)
+
+    const refElement_2 = document.getElementById( "telegram_" + i + "_1" )
+    let newrow_2 = document.createElement("tr")
+
+    newrow_2.setAttribute( "id",  "telegram_" + i + "_2" )
+    newrow_2.style.verticalAlign = "top"
+    newrow_2.innerHTML = 
+        '<td>[db-telegram' + (i + 1) + '-link]</td>' +
+        '<td id="telegram_' + i + '_2_description">' + dbSettingsDescriptions[ "telegram" ][ 2 ] + '</td>' +
+        '<td></td>'
+    refElement_2.parentNode.insertBefore(newrow_2, refElement_2.nextSibling)
+
+    const refElement_3 = document.getElementById( "telegram_" + i + "_2" )
+    let newrow_3 = document.createElement("tr")
+
+    newrow_3.setAttribute( "id",  "telegram_" + i + "_3" )
+    newrow_3.style.verticalAlign = "top"
+    newrow_3.innerHTML = 
+        '<td>[db-telegram' + (i + 1) + '-href]</td>' +
+        '<td id="telegram_' + i + '_3_description">' + dbSettingsDescriptions[ "telegram" ][ 3 ] + '</td>' +
+        '<td></td>'
+    refElement_3.parentNode.insertBefore(newrow_3, refElement_3.nextSibling)
+
+    numTelegram++
 }
 
 function dbAddEmail() {
