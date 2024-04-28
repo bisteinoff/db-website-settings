@@ -41,6 +41,7 @@ window.addEventListener( "load" , function() {
         numWhatsapps = ++i
     }
 
+
     i = 0
     while ( telegram = document.getElementById( "telegram_" + i + "_1" ) )
     {

@@ -3,14 +3,14 @@
 Plugin Name: DB Website Settings
 Plugin URI: https://github.com/bisteinoff/db-website-settings
 Description: The plugin is used for the basic website settings
-Version: 2.4
+Version: 2.5
 Author: Denis Bisteinov
 Author URI: https://bisteinoff.com
 Text Domain: db-website-settings
 License: GPL2
 */
 
-/*  Copyright 2023  Denis BISTEINOV  (email : bisteinoff@gmail.com)
+/*  Copyright 2024  Denis BISTEINOV  (email : bisteinoff@gmail.com)
  
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as 
@@ -26,9 +26,11 @@ License: GPL2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-	class dbSettings
+if ( ! class_exists( 'DBPL_WebsiteSettings' ) ) :
+
+	class DBPL_WebsiteSettings
 
 	{
 
@@ -239,8 +241,8 @@ License: GPL2
 				$icon = $svg -> saveHTML( $svg -> getElementsByTagName('svg')[0] );
 
 				add_menu_page(
-					esc_html( __('DB Website Settings' , 'db-website-settings' ) ),
-					esc_html( __('Website Settings' , 'db-website-settings' ) ),
+					esc_html__( 'DB Contact Settings', 'db-website-settings' ),
+					esc_html__( 'Contact Settings', 'db-website-settings' ),
 					'manage_options',
 					$this -> thisdir(),
 					array (&$this, 'admin_page_callback'),
@@ -268,7 +270,7 @@ License: GPL2
 				get_admin_url() . 'index.php'
 			) );
 
-			$settings_link = "<a href='$url'>" . esc_html( __( 'Settings' ) ) . '</a>';
+			$settings_link = "<a href='$url'>" . esc_html__( 'Settings' ) . '</a>';
 
 			array_push(
 				$links,
@@ -281,4 +283,6 @@ License: GPL2
 
 	}
 
-	$db_settings = new dbSettings();
+	$db_settings = new DBPL_WebsiteSettings();
+
+endif;

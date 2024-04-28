@@ -2,7 +2,7 @@
 
 	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-	$baseObj = new dbSettings();
+	$baseObj = new DBPL_WebsiteSettings();
 	$d = $baseObj -> thisdir(); // domain for translate.wordpress.org
 
 	// multisite compatibility
@@ -67,12 +67,12 @@
 	// form submit
 	if ( isset ( $_POST['submit'] ) && 
 	isset( $_POST[ $d . '_nonce' ] ) &&
-	wp_verify_nonce( $_POST[ $d . '_nonce' ], $d ) )
+	wp_verify_nonce( $_POST[ esc_html( sanitize_text_field( wp_unslash ( $d ) ) ) . '_nonce' ], esc_html( sanitize_text_field( $d ) ) ) )
 	{
 
 		if ( function_exists('current_user_can') &&
 			 !current_user_can('manage_options') )
-				die( esc_html_e( "Error: You do not have the permission to update the value" , 'db-website-settings' ) );
+				die( esc_html_e( 'Error: You do not have the permission to update the value' , 'db-website-settings' ) );
 
 		// Phone
 		$i = 0;
@@ -115,32 +115,32 @@
 ?>
 <div class='wrap db-settings-admin'>
 
-	<h1><?php esc_html_e( "Website Settings" , 'db-website-settings' ) ?></h1>
+	<h1><?php esc_html_e( 'Contact Settings' , 'db-website-settings' ) ?></h1>
 
 	<div class="db-settings-description">
-		<p><?php esc_html_e( "The plugin is used for the basic website settings" , 'db-website-settings' ) ?></p>
+		<p><?php esc_html_e( 'The plugin is used for the basic website settings' , 'db-website-settings' ) ?></p>
 	</div>
 
-	<h2><?php esc_html_e( "Settings" , 'db-website-settings' ) ?></h2>
+	<h2><?php esc_html_e( 'Settings' , 'db-website-settings' ) ?></h2>
 
 	<form name="db-settings" method="post" action="<?php echo esc_html( sanitize_text_field( $_SERVER['PHP_SELF'] ) ) ?>?page=<?php echo esc_html( sanitize_text_field( $d ) ) ?>&amp;updated=true">
 
 		<table id="db-settings-table" class="form-table db-settings-table" width="100%">
 			<tr valign="top">
 				<th scope="col" width="20%">
-					<?php esc_html_e( "Parameter" , 'db-website-settings' ) ?>
+					<?php esc_html_e( 'Parameter' , 'db-website-settings' ) ?>
 				</th>
 				<th scope="col" width="20%">
-					<?php esc_html_e( "Value" , 'db-website-settings' ) ?>
+					<?php esc_html_e( 'Value' , 'db-website-settings' ) ?>
 				</th>
 				<th scope="col" width="20%">
-					<?php esc_html_e( "Shortcode" , 'db-website-settings' ) ?>
+					<?php esc_html_e( 'Shortcode' , 'db-website-settings' ) ?>
 				</th>
 				<th scope="col" width="20%">
-					<?php esc_html_e( "Shortcode" , 'db-website-settings' ) ?> <?php esc_html_e( "description" , 'db-website-settings' ) ?>
+					<?php esc_html_e( 'Shortcode' , 'db-website-settings' ) ?> <?php esc_html_e( 'description' , 'db-website-settings' ) ?>
 				</th>
 				<th scope="col" width="20%">
-					<?php esc_html_e( "Example" , 'db-website-settings' ) ?>
+					<?php esc_html_e( 'Example' , 'db-website-settings' ) ?>
 				</th>
 			</tr>
 			<?php
@@ -152,7 +152,7 @@
 				?>
 				<tr id="phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_1" valign="top">
 					<th scope="row" rowspan="3">
-						<?php esc_html_e( "Phone" , 'db-website-settings' ) ?> <?php echo esc_html( sanitize_text_field( $ext ) ) ?>
+						<?php esc_html_e( 'Phone' , 'db-website-settings' ) ?> <?php echo esc_html( sanitize_text_field( $ext ) ) ?>
 					</th>
 					<td rowspan="3">
 						<input type="text" name="phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>" id="db_settings_phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>"
@@ -200,7 +200,7 @@
 			?>
 				<tr id="whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_1" valign="top">
 					<th scope="row" rowspan="3">
-						<?php esc_html_e( "Whatsapp" , 'db-website-settings' ) ?> <?php echo esc_html( sanitize_text_field( $ext ) ) ?>
+						<?php esc_html_e( 'Whatsapp' , 'db-website-settings' ) ?> <?php echo esc_html( sanitize_text_field( $ext ) ) ?>
 					</th>
 					<td rowspan="3">
 						<input type="text" name="whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>" id="db_settings_whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>"
@@ -296,7 +296,7 @@
 			?>
 				<tr id="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_1" valign="top">
 					<th scope="row" rowspan="2">
-						<?php esc_html_e( "E-mail" , 'db-website-settings' ) ?> <?php echo esc_html( sanitize_text_field( $ext ) ) ?>
+						<?php esc_html_e( 'E-mail' , 'db-website-settings' ) ?> <?php echo esc_html( sanitize_text_field( $ext ) ) ?>
 					</th>
 					<td rowspan="2">
 						<input type="text" name="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>" id="db_settings_email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>"
@@ -328,10 +328,10 @@
 		</table>
 
 		<div id="db_settings_add_buttons">
-			<a id="db_settings_add_phone"><?php esc_html_e( "Add Phone" , 'db-website-settings' ) ?></a>
-			<a id="db_settings_add_whatsapp"><?php esc_html_e( "Add Whatsapp" , 'db-website-settings' ) ?></a>
-			<a id="db_settings_add_telegram"><?php esc_html_e( "Add Telegram" , 'db-website-settings' ) ?></a>
-			<a id="db_settings_add_email"><?php esc_html_e( "Add E-mail" , 'db-website-settings' ) ?></a>
+			<a id="db_settings_add_phone"><?php esc_html_e( 'Add Phone' , 'db-website-settings' ) ?></a>
+			<a id="db_settings_add_whatsapp"><?php esc_html_e( 'Add Whatsapp' , 'db-website-settings' ) ?></a>
+			<a id="db_settings_add_telegram"><?php esc_html_e( 'Add Telegram' , 'db-website-settings' ) ?></a>
+			<a id="db_settings_add_email"><?php esc_html_e( 'Add E-mail' , 'db-website-settings' ) ?></a>
 		</div>
 
 		<input type="hidden" name="action" value="update" />
@@ -349,27 +349,27 @@
 <script type="text/javascript">
 	let dbSettingsDescriptions = {
 		"phone" : [
-			"<?php esc_html_e( "Phone" , 'db-website-settings' ) ?>",
-			"<?php esc_html_e( "insert" , 'db-website-settings' ) ?> <?php esc_html_e( "the phone number" , 'db-website-settings' ) ?> <?php esc_html_e( "as text" , 'db-website-settings' ) ?>",
-			"<?php esc_html_e( "insert" , 'db-website-settings' ) ?> <?php esc_html_e("the phone number" , 'db-website-settings' ) ?> <?php esc_html_e( "as link" , 'db-website-settings' ) ?>",
-			"<?php esc_html_e( "insert" , 'db-website-settings' ) ?> <?php esc_html_e("the href parameter of the phone number" , 'db-website-settings' ) ?>"
+			"<?php esc_html_e( 'Phone', 'db-website-settings' ) ?>",
+			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the phone number', 'db-website-settings' ) ?> <?php esc_html_e( 'as text', 'db-website-settings' ) ?>",
+			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the phone number', 'db-website-settings' ) ?> <?php esc_html_e( 'as link', 'db-website-settings' ) ?>",
+			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the href parameter of the phone number', 'db-website-settings' ) ?>"
 		],
 		"whatsapp" : [
-			"<?php esc_html_e( "Whatsapp" , 'db-website-settings' ) ?>",
-			"<?php esc_html_e( "insert" , 'db-website-settings' ) ?> <?php esc_html_e( "the whatsapp number" , 'db-website-settings' ) ?> <?php esc_html_e( "as text" , 'db-website-settings' ) ?>",
-			"<?php esc_html_e( "insert" , 'db-website-settings' ) ?> <?php esc_html_e( "the whatsapp number" , 'db-website-settings' ) ?> <?php esc_html_e( "as link" , 'db-website-settings' ) ?>",
-			"<?php esc_html_e( "insert" , 'db-website-settings' ) ?> <?php esc_html_e( "the href parameter of the whatsapp number" , 'db-website-settings' ) ?>"
+			"<?php esc_html_e( 'Whatsapp', 'db-website-settings' ) ?>",
+			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the whatsapp number', 'db-website-settings' ) ?> <?php esc_html_e( 'as text', 'db-website-settings' ) ?>",
+			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the whatsapp number', 'db-website-settings' ) ?> <?php esc_html_e( 'as link', 'db-website-settings' ) ?>",
+			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the href parameter of the whatsapp number', 'db-website-settings' ) ?>"
 		],
 		"telegram" : [
-			"<?php esc_html_e( "Telegram" , 'db-website-settings' ) ?>",
-			"<?php esc_html_e( "insert" , 'db-website-settings' ) ?> <?php esc_html_e( "the telegram number" , 'db-website-settings' ) ?> <?php esc_html_e( "as text" , 'db-website-settings' ) ?>",
-			"<?php esc_html_e( "insert" , 'db-website-settings' ) ?> <?php esc_html_e( "the telegram number" , 'db-website-settings' ) ?> <?php esc_html_e( "as link" , 'db-website-settings' ) ?>",
-			"<?php esc_html_e( "insert" , 'db-website-settings' ) ?> <?php esc_html_e( "the href parameter of the telegram number" , 'db-website-settings' ) ?>"
+			"<?php esc_html_e( 'Telegram' , 'db-website-settings' ) ?>",
+			"<?php esc_html_e( 'insert' , 'db-website-settings' ) ?> <?php esc_html_e( 'the telegram number' , 'db-website-settings' ) ?> <?php esc_html_e( 'as text' , 'db-website-settings' ) ?>",
+			"<?php esc_html_e( 'insert' , 'db-website-settings' ) ?> <?php esc_html_e( 'the telegram number' , 'db-website-settings' ) ?> <?php esc_html_e( 'as link' , 'db-website-settings' ) ?>",
+			"<?php esc_html_e( 'insert' , 'db-website-settings' ) ?> <?php esc_html_e( 'the href parameter of the telegram number' , 'db-website-settings' ) ?>"
 		],
 		"email" : [
-			"<?php esc_html_e( "E-mail" , 'db-website-settings' ) ?>",
-			"<?php esc_html_e( "insert" , 'db-website-settings' ) ?> <?php esc_html_e( "the e-mail" , 'db-website-settings' ) ?> <?php esc_html_e( "as text" , 'db-website-settings' ) ?>",
-			"<?php esc_html_e( "insert" , 'db-website-settings' ) ?> <?php esc_html_e( "the e-mail" , 'db-website-settings' ) ?> <?php esc_html_e( "as link" , 'db-website-settings' ) ?>"
+			"<?php esc_html_e( 'E-mail', 'db-website-settings' ) ?>",
+			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the e-mail', 'db-website-settings' ) ?> <?php esc_html_e( 'as text', 'db-website-settings' ) ?>",
+			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the e-mail', 'db-website-settings' ) ?> <?php esc_html_e( 'as link', 'db-website-settings' ) ?>"
 		]
 	}
 
