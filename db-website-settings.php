@@ -3,7 +3,7 @@
 Plugin Name: DB Website Settings
 Plugin URI: https://github.com/bisteinoff/db-website-settings
 Description: The plugin is used for the basic website settings
-Version: 2.5
+Version: 2.6
 Author: Denis Bisteinov
 Author URI: https://bisteinoff.com
 Text Domain: db-website-settings
@@ -58,6 +58,9 @@ if ( ! class_exists( 'DBPL_WebsiteSettings' ) ) :
 						},
 						99
 			);
+			
+			wp_register_style( $this -> thisdir(), plugin_dir_url( __FILE__ ) . 'css/style.min.css' );
+			wp_enqueue_style( $this -> thisdir() );
 
 			if (function_exists ('add_shortcode') )
 			{
@@ -82,13 +85,13 @@ if ( ! class_exists( 'DBPL_WebsiteSettings' ) ) :
 					});
 
 					// Phone As Link
-					add_shortcode('db-phone' . $ext . '-link', function() use ($option, $db_remove_chars) {
+					add_shortcode('db-phone' . $ext . '-link', function() use ($option, $db_remove_chars, $i) {
 						$link = str_replace(
 							$db_remove_chars,
 							'',
 							$option
 						);
-						return "<a href=\"tel:{$link}\">{$option}</a>"; 
+						return "<a href=\"tel:{$link}\" class=\"db-wcs-contact db-wcs-contact-phone db-wcs-contact-phone-{$i}\">{$option}</a>"; 
 					});
 
 					// Phone As Link
@@ -112,18 +115,18 @@ if ( ! class_exists( 'DBPL_WebsiteSettings' ) ) :
 					$ext = $i > 0 ? $i + 1 : '';
 
 					// Whatsapp Plain Text
-					add_shortcode('db-whatsapp' . $ext, function() use ($option) {
-						return $this -> whatsapp( $option , 'text' );
+					add_shortcode('db-whatsapp' . $ext, function() use ($option, $i) {
+						return $this -> whatsapp( $option , 'text', $i );
 					});
 
 					// Whatsapp As Link
-					add_shortcode('db-whatsapp' . $ext . '-link', function() use ($option) {
-						return $this -> whatsapp( $option , 'link' );
+					add_shortcode('db-whatsapp' . $ext . '-link', function() use ($option, $i) {
+						return $this -> whatsapp( $option , 'link', $i );
 					});
 
 					// Whatsapp href
-					add_shortcode('db-whatsapp' . $ext . '-href', function() use ($option) {
-						return $this -> whatsapp( $option , 'href' );
+					add_shortcode('db-whatsapp' . $ext . '-href', function() use ($option, $i) {
+						return $this -> whatsapp( $option , 'href', $i );
 					});
 
 					$i++;
@@ -137,18 +140,18 @@ if ( ! class_exists( 'DBPL_WebsiteSettings' ) ) :
 					$ext = $i > 0 ? $i + 1 : '';
 
 					// Telegram Plain Text
-					add_shortcode('db-telegram' . $ext, function() use ($option) {
-						return $this -> telegram( $option , 'text' );
+					add_shortcode('db-telegram' . $ext, function() use ($option, $i) {
+						return $this -> telegram( $option , 'text', $i );
 					});
 
 					// Telegram As Link
-					add_shortcode('db-telegram' . $ext . '-link', function() use ($option) {
-						return $this -> telegram( $option , 'link' );
+					add_shortcode('db-telegram' . $ext . '-link', function() use ($option, $i) {
+						return $this -> telegram( $option , 'link', $i );
 					});
 
 					// Telegram href
-					add_shortcode('db-telegram' . $ext . '-href', function() use ($option) {
-						return $this -> telegram( $option , 'href' );
+					add_shortcode('db-telegram' . $ext . '-href', function() use ($option, $i) {
+						return $this -> telegram( $option , 'href', $i );
 					});
 
 					$i++;
@@ -167,8 +170,8 @@ if ( ! class_exists( 'DBPL_WebsiteSettings' ) ) :
 					});
 
 					// E-mail As Link
-					add_shortcode('db-email' . $ext . '-link', function() use ($option) {
-						return "<a href=\"mailto:{$option}\">{$option}</a>"; 
+					add_shortcode('db-email' . $ext . '-link', function() use ($option, $i) {
+						return "<a href=\"mailto:{$option}\" class=\"db-wcs-contact db-wcs-contact-email db-wcs-contact-email-{$i}\">{$option}</a>"; 
 					});
 
 					$i++;
@@ -180,7 +183,7 @@ if ( ! class_exists( 'DBPL_WebsiteSettings' ) ) :
 
 		}
 
-		function whatsapp( $whatsapp , $type ) {
+		function whatsapp( $whatsapp, $type, $i ) {
 
 			switch ( $type ) {
 
@@ -198,8 +201,8 @@ if ( ! class_exists( 'DBPL_WebsiteSettings' ) ) :
 					break;
 
 				case "link" :
-					$link = $this -> whatsapp( $whatsapp , "href" );
-					$html = "<a href=\"{$link}\">{$whatsapp}</a>";
+					$link = $this -> whatsapp( $whatsapp , "href", $i );
+					$html = "<a href=\"{$link}\" class=\"db-wcs-contact db-wcs-contact-whatsapp db-wcs-contact-whatsapp-{$i}\">{$whatsapp}</a>";
 					break;
 
 			}
@@ -208,7 +211,7 @@ if ( ! class_exists( 'DBPL_WebsiteSettings' ) ) :
 
 		}
 
-		function telegram( $telegram , $type ) {
+		function telegram( $telegram, $type, $i ) {
 
 			switch ( $type ) {
 
@@ -221,8 +224,8 @@ if ( ! class_exists( 'DBPL_WebsiteSettings' ) ) :
 					break;
 
 				case "link" :
-					$link = $this -> telegram( $telegram , "href" );
-					$html = "<a href=\"{$link}\">@{$telegram}</a>";
+					$link = $this -> telegram( $telegram , "href", $i );
+					$html = "<a href=\"{$link}\" class=\"db-wcs-contact db-wcs-contact-telegram db-wcs-contact-telegram-{$i}\">@{$telegram}</a>";
 					break;
 
 			}

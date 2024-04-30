@@ -4,7 +4,7 @@ Donate link: https://bisteinoff.com
 Tags: shortcodes, phone, whatsapp, telegram, email
 Requires at least: 4.6
 Tested up to: 6.5
-Stable tag: 2.5
+Stable tag: 2.6
 License: GPL2
 
 The plugin is used for the basic website settings
@@ -26,6 +26,9 @@ DB Website Settings is an easy solution to make basic settings on your website
 You can use shortcodes for phone number, whatsapp, telegram, and e-mail, and insert them where needed. If once you need to change them, they will be changed automatically everywhere, where you had inserted them using the shortcodes.
 
 == Changelog ==
+
+= 2.6 =
+* Fixed direction for right-to-left (RTL) languages
 
 = 2.5 =
 * Security issues

@@ -1,0 +1,6 @@
+/* DB Settings Styling */
+
+:dir(rtl) .db-wcs-contact {
+    direction: ltr;
+    unicode-bidi: embed;
+}
