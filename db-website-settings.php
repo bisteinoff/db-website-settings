@@ -3,7 +3,7 @@
 Plugin Name: DB Website Settings
 Plugin URI: https://github.com/bisteinoff/db-website-settings
 Description: The plugin is used for the basic website settings
-Version: 2.7
+Version: 2.7.1
 Author: Denis Bisteinov
 Author URI: https://bisteinoff.com
 Text Domain: db-website-settings
@@ -49,7 +49,7 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 
 			add_filter( 'widget_text', 'do_shortcode' ); // enable shortcodes in widgets
 
-			add_filter( 'plugin_action_links_' . $this->thisdir() . '/index.php', array( &$this, 'db_settings_link' ) );
+			add_filter( 'plugin_action_links_' . $this->thisdir() . '/db-website-settings.php', array( &$this, 'db_settings_link' ) );
 			add_action( 'admin_menu', array (&$this, 'admin') );
 
 			add_action( 'admin_footer', function() {
@@ -270,7 +270,7 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 			$url = esc_url( add_query_arg(
 				'page',
 				$this->thisdir(),
-				get_admin_url() . 'index.php'
+				get_admin_url() . 'admin.php'
 			) );
 
 			$settings_link = "<a href='$url'>" . esc_html__( 'Settings' ) . '</a>';
