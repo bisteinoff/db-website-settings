@@ -2,8 +2,8 @@
 
 	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-	$baseObj = new DBPL_WebsiteSettings();
-	$d = $baseObj -> thisdir(); // domain for translate.wordpress.org
+	$baseObj = new DB_SETTINGS_WebsiteSettings();
+	$d = $baseObj->thisdir(); // domain for translate.wordpress.org
 
 	// multisite compatibility
 	if ( is_multisite() ) {
@@ -14,7 +14,7 @@
 
 			switch_to_blog( 1 );
 
-			$url = esc_url ( add_query_arg (
+			$url = esc_url( add_query_arg(
 				'page',
 				$d,
 				get_admin_url() . 'index.php'
@@ -36,28 +36,28 @@
 
 	// getting the values of the options
 	$i = 0;
-	while ( $option = esc_html ( sanitize_text_field ( get_option( 'db_settings_phone_' . $i ) ) ) )
+	while ( $option = esc_html( sanitize_text_field( get_option( 'db_settings_phone_' . $i ) ) ) )
 	{
 		$db_settings_phone[ $i ] = $option;
 		$i++;
 	}
 
 	$i = 0;
-	while ( $option = esc_html ( sanitize_text_field ( get_option( 'db_settings_whatsapp_' . $i ) ) ) )
+	while ( $option = esc_html( sanitize_text_field( get_option( 'db_settings_whatsapp_' . $i ) ) ) )
 	{
 		$db_settings_whatsapp[ $i ] = $option;
 		$i++;
 	}
 
 	$i = 0;
-	while ( $option = esc_html ( sanitize_text_field ( get_option( 'db_settings_telegram_' . $i ) ) ) )
+	while ( $option = esc_html( sanitize_text_field( get_option( 'db_settings_telegram_' . $i ) ) ) )
 	{
 		$db_settings_telegram[ $i ] = $option;
 		$i++;
 	}
 
 	$i = 0;
-	while ( $option = esc_html ( sanitize_text_field ( get_option( 'db_settings_email_' . $i ) ) ) )
+	while ( $option = esc_html( sanitize_email ( get_option( 'db_settings_email_' . $i ) ) ) )
 	{
 		$db_settings_email[ $i ] = $option;
 		$i++;
@@ -67,46 +67,46 @@
 	// form submit
 	if ( isset ( $_POST['submit'] ) && 
 	isset( $_POST[ $d . '_nonce' ] ) &&
-	wp_verify_nonce( $_POST[ esc_html( sanitize_text_field( wp_unslash ( $d ) ) ) . '_nonce' ], esc_html( sanitize_text_field( $d ) ) ) )
+	wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ $d . '_nonce' ] ) ), sanitize_text_field( $d ) ) )
 	{
 
-		if ( function_exists('current_user_can') &&
-			 !current_user_can('manage_options') )
-				die( esc_html_e( 'Error: You do not have the permission to update the value' , 'db-website-settings' ) );
+		if ( function_exists( 'current_user_can' ) &&
+			 !current_user_can( 'manage_options' ) )
+				die( esc_html_e( 'Error: You do not have the permission to update the value', 'db-website-settings' ) );
 
 		// Phone
 		$i = 0;
-		while ( $option = esc_html ( sanitize_text_field ( $_POST[ 'phone_' . $i ] ) ) )
+		while ( $option = esc_html( sanitize_text_field( $_POST[ 'phone_' . $i ] ) ) )
 		{
 			$db_settings_phone[ $i ] = $option;
-			update_option ( 'db_settings_phone_'. $i , $db_settings_phone[ $i ] );
+			update_option ( 'db_settings_phone_'. $i, $db_settings_phone[ $i ] );
 			$i++;
 		}
 
 		// Whatsapp
 		$i = 0;
-		while ( $option = esc_html ( sanitize_text_field ( $_POST[ 'whatsapp_' . $i ] ) ) )
+		while ( $option = esc_html( sanitize_text_field( $_POST[ 'whatsapp_' . $i ] ) ) )
 		{
 			$db_settings_whatsapp[ $i ] = $option;
-			update_option ( 'db_settings_whatsapp_'. $i , $db_settings_whatsapp[ $i ] );
+			update_option ( 'db_settings_whatsapp_'. $i, $db_settings_whatsapp[ $i ] );
 			$i++;
 		}
 
 		// Telegram
 		$i = 0;
-		while ( $option = esc_html ( sanitize_text_field ( $_POST[ 'telegram_' . $i ] ) ) )
+		while ( $option = esc_html( sanitize_text_field( $_POST[ 'telegram_' . $i ] ) ) )
 		{
 			$db_settings_telegram[ $i ] = $option;
-			update_option ( 'db_settings_telegram_'. $i , $db_settings_telegram[ $i ] );
+			update_option ( 'db_settings_telegram_'. $i, $db_settings_telegram[ $i ] );
 			$i++;
 		}
 
 		// E-mail
 		$i = 0;
-		while ( $option = esc_html ( sanitize_email ( $_POST[ 'email_' . $i ] ) ) )
+		while ( $option = esc_html( sanitize_email ( $_POST[ 'email_' . $i ] ) ) )
 		{
 			$db_settings_email[ $i ] = $option;
-			update_option ( 'db_settings_email_'. $i , $db_settings_email[ $i ] );
+			update_option ( 'db_settings_email_'. $i, $db_settings_email[ $i ] );
 			$i++;
 		}
 
@@ -164,7 +164,7 @@
 					<td id="phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_1_description">
 					</td>
 					<td>
-						<?php echo do_shortcode("[db-phone" . $ext . "]"); ?>
+						<?php echo do_shortcode( "[db-phone" . esc_html( sanitize_text_field( $ext ) ) . "]" ); ?>
 					</td>
 				</tr>
 				<tr id="phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_2" valign="top">
@@ -174,7 +174,7 @@
 					<td id="phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_2_description">
 					</td>
 					<td>
-						<?php echo do_shortcode("[db-phone" . $ext . "-link]"); ?>
+						<?php echo do_shortcode( "[db-phone" . esc_html( sanitize_text_field( $ext ) ) . "-link]" ); ?>
 					</td>
 				</tr>
 				<tr id="phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_3" valign="top">
@@ -184,12 +184,12 @@
 					<td id="phone_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_3_description">
 					</td>
 					<td>
-						<?php echo do_shortcode("[db-phone" . $ext . "-href]"); ?>
+						<?php echo do_shortcode( "[db-phone" . esc_html( sanitize_text_field( $ext ) ) . "-href]" ); ?>
 					</td>
 				</tr>
 			<?php
 				}
-				unset($value); // .Phones
+				unset( $value ); // .Phones
 
 
 				// Whatsapp Chats
@@ -212,7 +212,7 @@
 					<td id="whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_1_description">
 					</td>
 					<td>
-						<?php echo do_shortcode("[db-whatsapp" . $ext . "]"); ?>
+						<?php echo do_shortcode( "[db-whatsapp" . esc_html( sanitize_text_field( $ext ) ) . "]" ); ?>
 					</td>
 				</tr>
 				<tr id="whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_2" valign="top">
@@ -222,7 +222,7 @@
 					<td id="whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_2_description">
 					</td>
 					<td>
-						<?php echo do_shortcode("[db-whatsapp" . $ext . "-link]"); ?>
+						<?php echo do_shortcode( "[db-whatsapp" . esc_html( sanitize_text_field( $ext ) ) . "-link]" ); ?>
 					</td>
 				</tr>
 				<tr id="whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_3" valign="top">
@@ -232,12 +232,12 @@
 					<td id="whatsapp_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_3_description">
 					</td>
 					<td>
-						<?php echo do_shortcode("[db-whatsapp" . $ext . "-href]"); ?>
+						<?php echo do_shortcode( "[db-whatsapp" . esc_html( sanitize_text_field( $ext ) ) . "-href]" ); ?>
 					</td>
 				</tr>
 			<?php
 				}
-				unset($value); // .Whatsapp Chats
+				unset( $value ); // .Whatsapp Chats
 
 
 				// Telegram Chats
@@ -248,7 +248,7 @@
 			?>
 				<tr id="telegram_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_1" valign="top">
 					<th scope="row" rowspan="3">
-						<?php esc_html_e( "Telegram" , 'db-website-settings' ) ?> <?php echo esc_html( sanitize_text_field( $ext ) ) ?>
+						<?php esc_html_e( 'Telegram' , 'db-website-settings' ) ?> <?php echo esc_html( sanitize_text_field( $ext ) ) ?>
 					</th>
 					<td rowspan="3">
 						<input type="text" name="telegram_<?php echo esc_html( sanitize_text_field( $i ) ) ?>" id="db_settings_telegram_<?php echo esc_html( sanitize_text_field( $i ) ) ?>"
@@ -260,7 +260,7 @@
 					<td id="telegram_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_1_description">
 					</td>
 					<td>
-						<?php echo do_shortcode("[db-telegram" . $ext . "]"); ?>
+						<?php echo do_shortcode( "[db-telegram" . esc_html( sanitize_text_field( $ext ) ) . "]" ); ?>
 					</td>
 				</tr>
 				<tr id="telegram_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_2" valign="top">
@@ -270,7 +270,7 @@
 					<td id="telegram_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_2_description">
 					</td>
 					<td>
-						<?php echo do_shortcode("[db-telegram" . $ext . "-link]"); ?>
+						<?php echo do_shortcode( "[db-telegram" . esc_html( sanitize_text_field( $ext ) ) . "-link]" ); ?>
 					</td>
 				</tr>
 				<tr id="telegram_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_3" valign="top">
@@ -280,12 +280,12 @@
 					<td id="telegram_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_3_description">
 					</td>
 					<td>
-						<?php echo do_shortcode("[db-telegram" . $ext . "-href]"); ?>
+						<?php echo do_shortcode( "[db-telegram" . esc_html( sanitize_text_field( $ext ) ) . "-href]" ); ?>
 					</td>
 				</tr>
 			<?php
 				}
-				unset($value); // .Telegram Chats
+				unset( $value ); // .Telegram Chats
 
 
 				// E-mails
@@ -300,7 +300,7 @@
 					</th>
 					<td rowspan="2">
 						<input type="text" name="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>" id="db_settings_email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>"
-								size="20" value="<?php echo esc_html( sanitize_text_field( $value ) ) ?>" />
+								size="20" value="<?php echo esc_html( sanitize_email( $value ) ) ?>" />
 					</td>
 					<td>
 						[db-email<?php echo esc_html( sanitize_text_field( $ext ) ) ?>]
@@ -308,7 +308,7 @@
 					<td id="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_1_description">
 					</td>
 					<td>
-						<?php echo do_shortcode("[db-email" . $ext . "]"); ?>
+						<?php echo do_shortcode( "[db-email" . esc_html( sanitize_text_field( $ext ) ) . "]" ); ?>
 					</td>
 				</tr>
 				<tr id="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_2" valign="top">
@@ -318,12 +318,12 @@
 					<td id="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_2_description">
 					</td>
 					<td>
-						<?php echo do_shortcode("[db-email-link" . $ext . "]"); ?>
+						<?php echo do_shortcode( "[db-email-link" . esc_html( sanitize_text_field( $ext ) ) . "]" ); ?>
 					</td>
 				</tr>
 			<?php
 				}
-				unset($value); // .E-mails
+				unset( $value ); // .E-mails
 			?>
 		</table>
 
