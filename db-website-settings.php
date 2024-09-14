@@ -3,7 +3,7 @@
 Plugin Name: DB Website Settings
 Plugin URI: https://github.com/bisteinoff/db-website-settings
 Description: The plugin is used for the basic website settings
-Version: 2.7.1
+Version: 2.7.2
 Author: Denis Bisteinov
 Author URI: https://bisteinoff.com
 Text Domain: db-website-settings
@@ -30,6 +30,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 
+	define( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION', '2.7.2' );
+
 	class DB_SETTINGS_WebsiteSettings
 
 	{
@@ -50,16 +52,16 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 			add_filter( 'widget_text', 'do_shortcode' ); // enable shortcodes in widgets
 
 			add_filter( 'plugin_action_links_' . $this->thisdir() . '/db-website-settings.php', array( &$this, 'db_settings_link' ) );
-			add_action( 'admin_menu', array (&$this, 'admin') );
+			add_action( 'admin_menu', array( &$this, 'admin' ) );
 
 			add_action( 'admin_footer', function() {
-							wp_enqueue_style( $this->thisdir() . '-admin', plugin_dir_url( __FILE__ ) . 'css/admin.min.css' );
-							wp_enqueue_script( $this->thisdir() . '-admin', plugin_dir_url( __FILE__ ) . 'js/admin.min.js', null, false, true );
+							wp_enqueue_style( $this->thisdir() . '-admin', plugin_dir_url( __FILE__ ) . 'css/admin.min.css', [], DB_WEBSITE_SETTINGS_PLUGIN_VERSION, 'all' );
+							wp_enqueue_script( $this->thisdir() . '-admin', plugin_dir_url( __FILE__ ) . 'js/admin.min.js', null, DB_WEBSITE_SETTINGS_PLUGIN_VERSION, true );
 						},
 						99
 			);
 
-			wp_register_style( $this->thisdir(), plugin_dir_url( __FILE__ ) . 'css/style.min.css' );
+			wp_register_style( $this->thisdir(), plugin_dir_url( __FILE__ ) . 'css/style.min.css', [], DB_WEBSITE_SETTINGS_PLUGIN_VERSION, 'all' );
 			wp_enqueue_style( $this->thisdir() );
 
 			if ( function_exists( 'add_shortcode' ) )
@@ -78,20 +80,21 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 				while ( $option = esc_html( sanitize_text_field( get_option( 'db_settings_phone_' . $i ) ) ) )
 				{
 					$ext = $i > 0 ? $i + 1 : '';
+					$classes = "db-wcs-contact db-wcs-contact-phone db-wcs-contact-phone-{$i}";
 
 					// Phone Plain Text
-					add_shortcode( 'db-phone' . esc_html( sanitize_text_field( $ext ) ), function() use ( $option ) {
-						return wp_kses_post( $option );
+					add_shortcode( 'db-phone' . esc_html( sanitize_text_field( $ext ) ), function() use ( $option, $classes ) {
+						return wp_kses_post( "<span class=\"{$classes}\">{$option}</span>" );
 					});
 
 					// Phone As Link
-					add_shortcode( 'db-phone' . esc_html( sanitize_text_field( $ext ) ) . '-link', function() use ( $option, $db_remove_chars, $i ) {
+					add_shortcode( 'db-phone' . esc_html( sanitize_text_field( $ext ) ) . '-link', function() use ( $option,$classes, $db_remove_chars, $i ) {
 						$link = str_replace(
 							$db_remove_chars,
 							'',
 							$option
 						);
-						return wp_kses_post( "<a href=\"tel:{$link}\" class=\"db-wcs-contact db-wcs-contact-phone db-wcs-contact-phone-{$i}\">{$option}</a>" );
+						return wp_kses_post( "<a href=\"tel:{$link}\" class=\"{$classes}\">{$option}</a>" );
 					});
 
 					// Phone As Link
@@ -163,15 +166,16 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 				while ( $option = esc_html( sanitize_email( get_option( 'db_settings_email_' . $i ) ) ) )
 				{
 					$ext = $i > 0 ? $i + 1 : '';
+					$classes = "db-wcs-contact db-wcs-contact-email db-wcs-contact-email-{$i}";
 
 					// E-mail Plain Text
-					add_shortcode( 'db-email' . esc_html( sanitize_text_field( $ext ) ), function() use ( $option ) {
-						return wp_kses_post( $option );
+					add_shortcode( 'db-email' . esc_html( sanitize_text_field( $ext ) ), function() use ( $option, $classes ) {
+						return wp_kses_post( "<span class=\"{$classes}\">{$option}</span>" );
 					});
 
 					// E-mail As Link
-					add_shortcode( 'db-email' . esc_html( sanitize_text_field( $ext ) ) . '-link', function() use ( $option, $i ) {
-						return wp_kses_post( "<a href=\"mailto:{$option}\" class=\"db-wcs-contact db-wcs-contact-email db-wcs-contact-email-{$i}\">{$option}</a>" );
+					add_shortcode( 'db-email' . esc_html( sanitize_text_field( $ext ) ) . '-link', function() use ( $option, $classes, $i ) {
+						return wp_kses_post( "<a href=\"mailto:{$option}\" class=\"{$classes}\">{$option}</a>" );
 					});
 
 					$i++;
@@ -185,10 +189,12 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 
 		function whatsapp( $whatsapp, $type, $i ) {
 
+			$classes = "db-wcs-contact db-wcs-contact-whatsapp db-wcs-contact-whatsapp-{$i}";
+
 			switch ( $type ) {
 
 				case "text" :
-					$html = $whatsapp;
+					$html = "<span class=\"{$classes}\">{$whatsapp}</span>";
 					break;
 
 				case "href" :
@@ -202,7 +208,7 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 
 				case "link" :
 					$link = $this->whatsapp( $whatsapp, "href", $i );
-					$html = "<a href=\"{$link}\" class=\"db-wcs-contact db-wcs-contact-whatsapp db-wcs-contact-whatsapp-{$i}\">{$whatsapp}</a>";
+					$html = "<a href=\"{$link}\" class=\"{$classes}\">{$whatsapp}</a>";
 					break;
 
 			}
@@ -213,10 +219,12 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 
 		function telegram( $telegram, $type, $i ) {
 
+			$classes = "db-wcs-contact db-wcs-contact-telegram db-wcs-contact-telegram-{$i}";
+
 			switch ( $type ) {
 
 				case "text" :
-					$html = "@{$telegram}";
+					$html = "<span class=\"{$classes}\">@{$telegram}</span>";
 					break;
 
 				case "href" :
@@ -225,7 +233,7 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 
 				case "link" :
 					$link = $this->telegram( $telegram, "href", $i );
-					$html = "<a href=\"{$link}\" class=\"db-wcs-contact db-wcs-contact-telegram db-wcs-contact-telegram-{$i}\">@{$telegram}</a>";
+					$html = "<a href=\"{$link}\" class=\"{$classes}\">@{$telegram}</a>";
 					break;
 
 			}

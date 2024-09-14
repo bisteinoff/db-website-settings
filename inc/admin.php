@@ -3,7 +3,7 @@
 	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 	$baseObj = new DB_SETTINGS_WebsiteSettings();
-	$d = $baseObj->thisdir(); // domain for translate.wordpress.org
+	$d = $baseObj->thisdir();
 
 	// multisite compatibility
 	if ( is_multisite() ) {
@@ -57,7 +57,7 @@
 	}
 
 	$i = 0;
-	while ( $option = esc_html( sanitize_email ( get_option( 'db_settings_email_' . $i ) ) ) )
+	while ( $option = esc_html( sanitize_email( get_option( 'db_settings_email_' . $i ) ) ) )
 	{
 		$db_settings_email[ $i ] = $option;
 		$i++;
@@ -65,9 +65,9 @@
 
 
 	// form submit
-	if ( isset ( $_POST['submit'] ) && 
-	isset( $_POST[ $d . '_nonce' ] ) &&
-	wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ $d . '_nonce' ] ) ), sanitize_text_field( $d ) ) )
+	if ( isset ( $_POST[ 'submit' ] ) && 
+		 isset( $_POST[ $d . '_nonce' ] ) &&
+		 wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ $d . '_nonce' ] ) ), sanitize_text_field( $d ) ) )
 	{
 
 		if ( function_exists( 'current_user_can' ) &&

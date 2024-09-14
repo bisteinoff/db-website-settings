@@ -3,19 +3,19 @@ Contributors: bisteinoff
 Donate link: https://bisteinoff.com
 Tags: shortcodes, phone, whatsapp, telegram, email
 Requires at least: 4.6
-Tested up to: 6.5
-Stable tag: 2.7.1
+Tested up to: 6.6
+Stable tag: 2.7.2
 License: GPL2
 
-The plugin is used for the basic website settings
+The plugin is used for the basic website settings.
 
 == Description ==
 
-DB Website Settings is an easy solution to make basic settings on your website
+DB Website Settings is an easy solution to make basic settings on your website.
 
 == Installation ==
 
-1. Upload db-tagcloud folder to the `/wp-content/plugins/` directory
+1. Upload db-website-settings folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Enjoy
 
