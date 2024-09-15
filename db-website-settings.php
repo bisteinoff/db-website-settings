@@ -3,7 +3,7 @@
 Plugin Name: DB Website Settings
 Plugin URI: https://github.com/bisteinoff/db-website-settings
 Description: The plugin is used for the basic website settings
-Version: 2.7.2
+Version: 2.8
 Author: Denis Bisteinov
 Author URI: https://bisteinoff.com
 Text Domain: db-website-settings
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 
-	define( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION', '2.7.2' );
+	define( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION', '2.8' );
 
 	class DB_SETTINGS_WebsiteSettings
 
@@ -88,7 +88,7 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 					});
 
 					// Phone As Link
-					add_shortcode( 'db-phone' . esc_html( sanitize_text_field( $ext ) ) . '-link', function() use ( $option,$classes, $db_remove_chars, $i ) {
+					add_shortcode( 'db-phone' . esc_html( sanitize_text_field( $ext ) ) . '-link', function() use ( $option, $classes, $db_remove_chars, $i ) {
 						$link = str_replace(
 							$db_remove_chars,
 							'',
@@ -97,7 +97,7 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 						return wp_kses_post( "<a href=\"tel:{$link}\" class=\"{$classes}\">{$option}</a>" );
 					});
 
-					// Phone As Link
+					// Phone href
 					add_shortcode( 'db-phone' . esc_html( sanitize_text_field( $ext ) ) . '-href', function() use ( $option, $db_remove_chars ) {
 						$link = str_replace(
 							$db_remove_chars,
@@ -176,6 +176,11 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 					// E-mail As Link
 					add_shortcode( 'db-email' . esc_html( sanitize_text_field( $ext ) ) . '-link', function() use ( $option, $classes, $i ) {
 						return wp_kses_post( "<a href=\"mailto:{$option}\" class=\"{$classes}\">{$option}</a>" );
+					});
+
+					// E-mail href
+					add_shortcode( 'db-email' . esc_html( sanitize_text_field( $ext ) ) . '-href', function() use ( $option, $i ) {
+						return wp_kses_post( $option );
 					});
 
 					$i++;

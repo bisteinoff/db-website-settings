@@ -60,9 +60,11 @@ window.addEventListener( "load" , function() {
     {
         const email_desc_1 = document.getElementById( "email_" + i + "_1_description" )
         const email_desc_2 = document.getElementById( "email_" + i + "_2_description" )
+        const email_desc_3 = document.getElementById( "email_" + i + "_3_description" )
 
         email_desc_1.innerText = dbSettingsDescriptions[ "email" ][ 1 ]
         email_desc_2.innerText = dbSettingsDescriptions[ "email" ][ 2 ]
+        email_desc_3.innerText = dbSettingsDescriptions[ "email" ][ 3 ]
         numEmails = ++i
     }
 
@@ -227,14 +229,14 @@ function dbAddTelegram() {
 function dbAddEmail() {
     let i = numEmails
 
-    const refElement_1 = document.getElementById( "email_" + (i - 1) + "_2" )
+    const refElement_1 = document.getElementById( "email_" + (i - 1) + "_3" )
     let newrow_1 = document.createElement("tr")
 
     newrow_1.setAttribute( "id",  "email_" + i + "_1" )
     newrow_1.style.verticalAlign = "top"
     newrow_1.innerHTML = 
-        '<th scope="row" rowspan="2">' + dbSettingsDescriptions[ "email" ][ 0 ] + ' ' + (i + 1) + '</th>' +
-        '<td rowspan="2"><input type="text" name="email_' + i + '" id="db_settings_email_' + i + '" size="20" value="" /></td>' +
+        '<th scope="row" rowspan="3">' + dbSettingsDescriptions[ "email" ][ 0 ] + ' ' + (i + 1) + '</th>' +
+        '<td rowspan="3"><input type="text" name="email_' + i + '" id="db_settings_email_' + i + '" size="20" value="" /></td>' +
         '<td>[db-email' + (i + 1) + ']</td>' +
         '<td id="email_' + i + '_1_description">' + dbSettingsDescriptions[ "email" ][ 1 ] + '</td>' +
         '<td></td>'
@@ -250,6 +252,17 @@ function dbAddEmail() {
         '<td id="email_' + i + '_2_description">' + dbSettingsDescriptions[ "email" ][ 2 ] + '</td>' +
         '<td></td>'
     refElement_2.parentNode.insertBefore(newrow_2, refElement_2.nextSibling)
+
+    const refElement_3 = document.getElementById( "email_" + i + "_2" )
+    let newrow_3 = document.createElement("tr")
+
+    newrow_3.setAttribute( "id",  "email_" + i + "_3" )
+    newrow_3.style.verticalAlign = "top"
+    newrow_3.innerHTML = 
+        '<td>[db-email' + (i + 1) + '-href]</td>' +
+        '<td id="email_' + i + '_3_description">' + dbSettingsDescriptions[ "email" ][ 3 ] + '</td>' +
+        '<td></td>'
+    refElement_3.parentNode.insertBefore(newrow_3, refElement_3.nextSibling)
 
     numEmails++
 }

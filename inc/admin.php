@@ -295,10 +295,10 @@
 					$ext = $i > 0 ? $i + 1 : '';
 			?>
 				<tr id="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_1" valign="top">
-					<th scope="row" rowspan="2">
+					<th scope="row" rowspan="3">
 						<?php esc_html_e( 'E-mail' , 'db-website-settings' ) ?> <?php echo esc_html( sanitize_text_field( $ext ) ) ?>
 					</th>
-					<td rowspan="2">
+					<td rowspan="3">
 						<input type="text" name="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>" id="db_settings_email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>"
 								size="20" value="<?php echo esc_html( sanitize_email( $value ) ) ?>" />
 					</td>
@@ -318,7 +318,17 @@
 					<td id="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_2_description">
 					</td>
 					<td>
-						<?php echo do_shortcode( "[db-email-link" . esc_html( sanitize_text_field( $ext ) ) . "]" ); ?>
+						<?php echo do_shortcode( "[db-email" . esc_html( sanitize_text_field( $ext ) ) . "-link]" ); ?>
+					</td>
+				</tr>
+				<tr id="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_3" valign="top">
+					<td>
+						[db-email<?php echo esc_html( sanitize_text_field( $ext ) ) ?>-href]
+					</td>
+					<td id="email_<?php echo esc_html( sanitize_text_field( $i ) ) ?>_3_description">
+					</td>
+					<td>
+						<?php echo do_shortcode( "[db-email" . esc_html( sanitize_text_field( $ext ) ) . "-href]" ); ?>
 					</td>
 				</tr>
 			<?php
@@ -352,7 +362,7 @@
 			"<?php esc_html_e( 'Phone', 'db-website-settings' ) ?>",
 			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the phone number', 'db-website-settings' ) ?> <?php esc_html_e( 'as text', 'db-website-settings' ) ?>",
 			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the phone number', 'db-website-settings' ) ?> <?php esc_html_e( 'as link', 'db-website-settings' ) ?>",
-			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the href parameter of the phone number', 'db-website-settings' ) ?>"
+			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the href parameter of the phone number', 'db-website-settings' ) ?> (tel:)"
 		],
 		"whatsapp" : [
 			"<?php esc_html_e( 'Whatsapp', 'db-website-settings' ) ?>",
@@ -369,7 +379,8 @@
 		"email" : [
 			"<?php esc_html_e( 'E-mail', 'db-website-settings' ) ?>",
 			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the e-mail', 'db-website-settings' ) ?> <?php esc_html_e( 'as text', 'db-website-settings' ) ?>",
-			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the e-mail', 'db-website-settings' ) ?> <?php esc_html_e( 'as link', 'db-website-settings' ) ?>"
+			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the e-mail', 'db-website-settings' ) ?> <?php esc_html_e( 'as link', 'db-website-settings' ) ?>",
+			"<?php esc_html_e( 'insert', 'db-website-settings' ) ?> <?php esc_html_e( 'the e-mail', 'db-website-settings' ) ?> <?php esc_html_e( 'the href parameter of email', 'db-website-settings' ) ?> (mailto:)"
 		]
 	}
 
