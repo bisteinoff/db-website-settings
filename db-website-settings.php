@@ -3,7 +3,7 @@
 Plugin Name: DB Website Settings
 Plugin URI: https://github.com/bisteinoff/db-website-settings
 Description: The plugin is used for the basic website settings
-Version: 2.8
+Version: 2.8.1
 Author: Denis Bisteinov
 Author URI: https://bisteinoff.com
 Text Domain: db-website-settings
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 
-	define( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION', '2.8' );
+	define( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION', '2.8.1' );
 
 	class DB_SETTINGS_WebsiteSettings
 
@@ -61,8 +61,12 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 						99
 			);
 
-			wp_register_style( $this->thisdir(), plugin_dir_url( __FILE__ ) . 'css/style.min.css', [], DB_WEBSITE_SETTINGS_PLUGIN_VERSION, 'all' );
-			wp_enqueue_style( $this->thisdir() );
+			add_action( 'wp_enqueue_scripts', function() {
+					wp_register_style( $this->thisdir(), plugin_dir_url( __FILE__ ) . 'css/style.min.css', [], DB_WEBSITE_SETTINGS_PLUGIN_VERSION, 'all' );
+					wp_enqueue_style( $this->thisdir() );
+				},
+				99
+			);
 
 			if ( function_exists( 'add_shortcode' ) )
 			{
@@ -252,9 +256,18 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 			if ( function_exists( 'add_menu_page' ) )
 			{
 
-				$svg = new DOMDocument();
-				$svg->load( plugin_dir_path( __FILE__ ) . 'img/icon.svg' );
-				$icon = $svg->saveHTML( $svg->getElementsByTagName( 'svg' )[ 0 ] );
+				if ( class_exists( 'DOMDocument' ) ) :
+
+					$svg = new DOMDocument();
+					$svg->load( plugin_dir_path( __FILE__ ) . 'img/icon.svg' );
+					$icon = $svg->saveHTML( $svg->getElementsByTagName( 'svg' )[ 0 ] );
+					$icon = 'data:image/svg+xml;base64,' . base64_encode( $icon );
+
+				else:
+
+					$icon = 'dashicons-welcome-widgets-menus';
+
+				endif;
 
 				add_menu_page(
 					esc_html__( 'DB Contact Settings', 'db-website-settings' ),
@@ -262,7 +275,7 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 					'manage_options',
 					$this->thisdir(),
 					array( &$this, 'admin_page_callback' ),
-					'data:image/svg+xml;base64,' . base64_encode( $icon ),
+					$icon,
 					27
 					);
 
