@@ -65,7 +65,7 @@
 
 
 	// form submit
-	if ( isset ( $_POST[ 'submit' ] ) && 
+	if ( isset( $_POST[ 'submit' ] ) && 
 		 isset( $_POST[ $d . '_nonce' ] ) &&
 		 wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ $d . '_nonce' ] ) ), sanitize_text_field( $d ) ) )
 	{
@@ -76,8 +76,9 @@
 
 		// Phone
 		$i = 0;
-		while ( $option = esc_html( sanitize_text_field( $_POST[ 'phone_' . $i ] ) ) )
+		while ( isset( $_POST[ 'phone_' . $i ] ) )
 		{
+			$option = esc_html( sanitize_text_field( $_POST[ 'phone_' . $i ] ) );
 			$db_settings_phone[ $i ] = $option;
 			update_option ( 'db_settings_phone_'. $i, $db_settings_phone[ $i ] );
 			$i++;
@@ -85,8 +86,9 @@
 
 		// Whatsapp
 		$i = 0;
-		while ( $option = esc_html( sanitize_text_field( $_POST[ 'whatsapp_' . $i ] ) ) )
+		while ( isset( $_POST[ 'whatsapp_' . $i ] ) )
 		{
+			$option = esc_html( sanitize_text_field( $_POST[ 'whatsapp_' . $i ] ) );
 			$db_settings_whatsapp[ $i ] = $option;
 			update_option ( 'db_settings_whatsapp_'. $i, $db_settings_whatsapp[ $i ] );
 			$i++;
@@ -94,8 +96,9 @@
 
 		// Telegram
 		$i = 0;
-		while ( $option = esc_html( sanitize_text_field( $_POST[ 'telegram_' . $i ] ) ) )
+		while ( isset( $_POST[ 'telegram_' . $i ] ) )
 		{
+			$option = esc_html( sanitize_text_field( $_POST[ 'telegram_' . $i ] ) );
 			$db_settings_telegram[ $i ] = $option;
 			update_option ( 'db_settings_telegram_'. $i, $db_settings_telegram[ $i ] );
 			$i++;
@@ -103,8 +106,9 @@
 
 		// E-mail
 		$i = 0;
-		while ( $option = esc_html( sanitize_email ( $_POST[ 'email_' . $i ] ) ) )
+		while ( isset( $_POST[ 'email_' . $i ] ) )
 		{
+			$option = esc_html( sanitize_email ( $_POST[ 'email_' . $i ] ) );
 			$db_settings_email[ $i ] = $option;
 			update_option ( 'db_settings_email_'. $i, $db_settings_email[ $i ] );
 			$i++;

@@ -3,7 +3,7 @@
 Plugin Name: DB Website Settings
 Plugin URI: https://github.com/bisteinoff/db-website-settings
 Description: The plugin is used for the basic website settings
-Version: 2.8.1
+Version: 2.8.2
 Author: Denis Bisteinov
 Author URI: https://bisteinoff.com
 Text Domain: db-website-settings
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 
-	define( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION', '2.8.1' );
+	define( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION', '2.8.2' );
 
 	class DB_SETTINGS_WebsiteSettings
 

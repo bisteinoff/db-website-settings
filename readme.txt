@@ -4,7 +4,7 @@ Donate link: https://bisteinoff.com
 Tags: shortcodes, phone, whatsapp, telegram, email
 Requires at least: 4.6
 Tested up to: 6.6
-Stable tag: 2.8.1
+Stable tag: 2.8.2
 License: GPL2
 
 The plugin is used for the basic website settings.
