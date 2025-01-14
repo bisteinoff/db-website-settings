@@ -1,6 +1,6 @@
 <?php // THE SETTINGS PAGE
 
-	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+	if ( !defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 	$baseObj = new DB_SETTINGS_WebsiteSettings();
 	$d = $baseObj->thisdir();
@@ -78,9 +78,9 @@
 		$i = 0;
 		while ( isset( $_POST[ 'phone_' . $i ] ) )
 		{
-			$option = esc_html( sanitize_text_field( $_POST[ 'phone_' . $i ] ) );
+			$option = esc_html( sanitize_text_field( wp_unslash( $_POST[ 'phone_' . $i ] ) ) );
 			$db_settings_phone[ $i ] = $option;
-			update_option ( 'db_settings_phone_'. $i, $db_settings_phone[ $i ] );
+			update_option( 'db_settings_phone_'. $i, $db_settings_phone[ $i ] );
 			$i++;
 		}
 
@@ -88,9 +88,9 @@
 		$i = 0;
 		while ( isset( $_POST[ 'whatsapp_' . $i ] ) )
 		{
-			$option = esc_html( sanitize_text_field( $_POST[ 'whatsapp_' . $i ] ) );
+			$option = esc_html( sanitize_text_field( wp_unslash( $_POST[ 'whatsapp_' . $i ] ) ) );
 			$db_settings_whatsapp[ $i ] = $option;
-			update_option ( 'db_settings_whatsapp_'. $i, $db_settings_whatsapp[ $i ] );
+			update_option( 'db_settings_whatsapp_'. $i, $db_settings_whatsapp[ $i ] );
 			$i++;
 		}
 
@@ -98,9 +98,9 @@
 		$i = 0;
 		while ( isset( $_POST[ 'telegram_' . $i ] ) )
 		{
-			$option = esc_html( sanitize_text_field( $_POST[ 'telegram_' . $i ] ) );
+			$option = esc_html( sanitize_text_field( wp_unslash( $_POST[ 'telegram_' . $i ] ) ) );
 			$db_settings_telegram[ $i ] = $option;
-			update_option ( 'db_settings_telegram_'. $i, $db_settings_telegram[ $i ] );
+			update_option( 'db_settings_telegram_'. $i, $db_settings_telegram[ $i ] );
 			$i++;
 		}
 
@@ -108,9 +108,9 @@
 		$i = 0;
 		while ( isset( $_POST[ 'email_' . $i ] ) )
 		{
-			$option = esc_html( sanitize_email ( $_POST[ 'email_' . $i ] ) );
+			$option = esc_html( sanitize_email( wp_unslash( $_POST[ 'email_' . $i ] ) ) );
 			$db_settings_email[ $i ] = $option;
-			update_option ( 'db_settings_email_'. $i, $db_settings_email[ $i ] );
+			update_option( 'db_settings_email_'. $i, $db_settings_email[ $i ] );
 			$i++;
 		}
 
@@ -127,7 +127,7 @@
 
 	<h2><?php esc_html_e( 'Settings' , 'db-website-settings' ) ?></h2>
 
-	<form name="db-settings" method="post" action="<?php echo esc_html( sanitize_text_field( $_SERVER['PHP_SELF'] ) ) ?>?page=<?php echo esc_html( sanitize_text_field( $d ) ) ?>&amp;updated=true">
+	<form name="db-settings" method="post" action="?page=<?php echo esc_html( sanitize_text_field( $d ) ) ?>&amp;updated=true">
 
 		<table id="db-settings-table" class="form-table db-settings-table" width="100%">
 			<tr valign="top">

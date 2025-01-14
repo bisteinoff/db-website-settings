@@ -1,16 +1,16 @@
 <?php
 /*
-Plugin Name: DB Website Settings
+Plugin Name: DB Edit All Contacts on 1 Settings Page
 Plugin URI: https://github.com/bisteinoff/db-website-settings
 Description: The plugin is used for the basic website settings
-Version: 2.8.2
+Version: 2.9
 Author: Denis Bisteinov
 Author URI: https://bisteinoff.com
 Text Domain: db-website-settings
 License: GPL2
 */
 
-/*  Copyright 2024  Denis BISTEINOV  (email : bisteinoff@gmail.com)
+/*  Copyright 2025  Denis BISTEINOV  (email : bisteinoff@gmail.com)
  
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as 
@@ -26,23 +26,18 @@ License: GPL2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( !defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
+if ( !class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 
-	define( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION', '2.8.2' );
+	if ( !defined( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION' ) )
+		define( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION', '2.9' );
 
 	class DB_SETTINGS_WebsiteSettings
 
 	{
 
-		function thisdir()
-		{
-			return basename( __DIR__ );
-		}
-
-		function __construct()
-		{
+		function __construct() {
 
 			add_option( 'db_settings_phone_0'    );
 			add_option( 'db_settings_whatsapp_0' );
@@ -196,6 +191,11 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 
 		}
 
+		function thisdir()
+		{
+			return basename( __DIR__ );
+		}
+
 		function whatsapp( $whatsapp, $type, $i ) {
 
 			$classes = "db-wcs-contact db-wcs-contact-whatsapp db-wcs-contact-whatsapp-{$i}";
@@ -253,8 +253,7 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 
 		function admin() {
 
-			if ( function_exists( 'add_menu_page' ) )
-			{
+			if ( function_exists( 'add_menu_page' ) ) :
 
 				if ( class_exists( 'DOMDocument' ) ) :
 
@@ -279,7 +278,7 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 					27
 					);
 
-			}
+			endif;
 
 		}
 
@@ -299,7 +298,7 @@ if ( ! class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 				get_admin_url() . 'admin.php'
 			) );
 
-			$settings_link = "<a href='$url'>" . esc_html__( 'Settings' ) . '</a>';
+			$settings_link = "<a href='$url'>" . esc_html__( 'Settings', 'db-website-settings' ) . '</a>';
 
 			array_push(
 				$links,
