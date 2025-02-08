@@ -266,3 +266,53 @@ function dbAddEmail() {
 
     numEmails++
 }
+
+jQuery(document).ready(function($) {
+
+    let dbSettingsTypes = {
+        phone: {
+            protocol: 'tel:',
+            link: '',
+            reg: /[^+\d]/g
+        },
+        whatsapp: {
+            protocol: '',
+            link: 'https://wa.me/',
+            reg: /\D/g
+        },
+        telegram: {
+            protocol: '',
+            link: 'https://t.me/',
+            hashtag: '@'
+        },
+        email: {
+            protocol: 'mailto:',
+            link: ''
+        }
+    };
+
+    $(document).on('input', 'input[id^="db_settings_"]', function() {
+
+        let inputId = $(this).attr('id'); // Get the input ID
+        let type = inputId.split('_')[2]; // Extract type
+        
+        if (dbSettingsTypes[type]) {
+            let index = inputId.split('_').pop(); // Extract the unique index from the input ID
+            let newValue = $(this).val(); // Get the input value
+            let cleanValue = dbSettingsTypes[type].reg ? newValue.replace(dbSettingsTypes[type].reg, '') : newValue; // Use regular expression if set
+
+            newValue = dbSettingsTypes[type].hashtag ? dbSettingsTypes[type].hashtag + newValue : newValue; // Add hashtag if set
+
+            // Build the HTML code for text, link, and href
+            let codeText = '<span class="db-wcs-contact db-wcs-contact-' + type + ' db-wcs-contact-' + type + '-' + index + '">' + newValue + '</span>';
+            let codeLink = '<a href="' + dbSettingsTypes[type].protocol + dbSettingsTypes[type].link + cleanValue + '" class="db-wcs-contact db-wcs-contact-' + type + ' db-wcs-contact-' + type + '-' + index + '">' + newValue + '</a>';
+            let codeHref = dbSettingsTypes[type].link + cleanValue;
+
+            // Update the table cells with new content
+            $('#' + type + '_' + index + '_1 td:last-child').html(codeText);
+            $('#' + type + '_' + index + '_2 td:last-child').html(codeLink);
+            $('#' + type + '_' + index + '_3 td:last-child').html(codeHref);
+        }
+    });
+
+});

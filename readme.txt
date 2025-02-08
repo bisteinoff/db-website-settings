@@ -4,7 +4,7 @@ Donate link: https://bisteinoff.com
 Tags: shortcodes, phone, whatsapp, telegram, email
 Requires at least: 4.6
 Tested up to: 6.7
-Stable tag: 2.9
+Stable tag: 2.10
 License: GPL2
 
 All phone numbers, e-mails, whatsapp and telegram chats are set on 1 page. You just use shortcodes instead of writing and rewriting the contacts.
@@ -65,6 +65,11 @@ You do not have to worry about the way how the shortcodes are formed. You will f
 Yes, you should use the corresponding shortcode. You will easily understand which one. To the right of each shortcode you will see an example, how it will work on a page.
 
 == Changelog ==
+
+= 2.10 =
+* Feature: Add script to dynamically change shortcode preview in admin panel.
+* Fix: Change the protocol of the Telegram link from tg:// to https:// and set the corresponding format.
+* Fix: Reload page right after saving the data to display the new data while using the shortcodes.
 
 = 2.9 =
 * The plugin name is changed from 'DB Website Settings' to 'DB Edit All Contacts on 1 Settings Page'

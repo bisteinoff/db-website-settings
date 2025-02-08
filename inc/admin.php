@@ -119,6 +119,26 @@
 ?>
 <div class='wrap db-settings-admin'>
 
+	<?php
+	
+		if ( isset( $_POST[ 'submit' ] ) ) :
+
+	?>
+
+	<script>
+        (function() {
+            setTimeout(function() {
+                location.reload();
+            }, 500); // Delay to ensure the save process completes.
+        })();
+    </script>
+
+	<?php
+
+		else:
+
+	?>
+
 	<h1><?php esc_html_e( 'Contact Settings' , 'db-website-settings' ) ?></h1>
 
 	<div class="db-settings-description">
@@ -357,6 +377,12 @@
 		<?php submit_button(); ?>
 
 	</form>
+
+	<?php
+
+		endif;
+
+	?>
 
 </div>
 

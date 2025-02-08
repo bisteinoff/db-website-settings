@@ -3,7 +3,7 @@
 Plugin Name: DB Edit All Contacts on 1 Settings Page
 Plugin URI: https://github.com/bisteinoff/db-website-settings
 Description: The plugin is used for the basic website settings
-Version: 2.9
+Version: 2.10
 Author: Denis Bisteinov
 Author URI: https://bisteinoff.com
 Text Domain: db-website-settings
@@ -31,7 +31,7 @@ if ( !defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( !class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 
 	if ( !defined( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION' ) )
-		define( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION', '2.9' );
+		define( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION', '2.10' );
 
 	class DB_SETTINGS_WebsiteSettings
 
@@ -237,7 +237,7 @@ if ( !class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 					break;
 
 				case "href" :
-					$html = "tg://resolve?domain={$telegram}";
+					$html = "https://t.me/{$telegram}";
 					break;
 
 				case "link" :
