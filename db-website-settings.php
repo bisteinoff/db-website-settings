@@ -3,7 +3,7 @@
 Plugin Name: DB Edit All Contacts on 1 Settings Page
 Plugin URI: https://github.com/bisteinoff/db-website-settings
 Description: The plugin is used for the basic website settings
-Version: 2.10
+Version: 2.11
 Author: Denis Bisteinov
 Author URI: https://bisteinoff.com
 Text Domain: db-website-settings
@@ -31,7 +31,7 @@ if ( !defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( !class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 
 	if ( !defined( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION' ) )
-		define( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION', '2.10' );
+		define( 'DB_WEBSITE_SETTINGS_PLUGIN_VERSION', '2.11' );
 
 	class DB_SETTINGS_WebsiteSettings
 
@@ -43,6 +43,7 @@ if ( !class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 			add_option( 'db_settings_whatsapp_0' );
 			add_option( 'db_settings_telegram_0' );
 			add_option( 'db_settings_email_0'    );
+			add_option( 'db_settings_address_0'  );
 
 			add_filter( 'widget_text', 'do_shortcode' ); // enable shortcodes in widgets
 
@@ -185,6 +186,31 @@ if ( !class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 					$i++;
 				}
 
+
+				// Address
+				$i = 0;
+				while ( $option = esc_html( sanitize_text_field( get_option( 'db_settings_address_' . $i ) ) ) )
+				{
+					$ext = $i > 0 ? $i + 1 : '';
+
+					// Address Plain Text
+					add_shortcode( 'db-address' . esc_html( sanitize_text_field( $ext ) ), function() use ( $option, $i ) {
+						return wp_kses_post( $this->address( $option , 'text', $i ) );
+					});
+
+					// Address As Link
+					add_shortcode( 'db-address' . esc_html( sanitize_text_field( $ext ) ) . '-link', function() use ( $option, $i ) {
+						return wp_kses_post( $this->address( $option , 'link', $i ) );
+					});
+
+					// Address href
+					add_shortcode( 'db-address' . esc_html( sanitize_text_field( $ext ) ) . '-href', function() use ( $option, $i ) {
+						return wp_kses_post( $this->address( $option , 'href', $i ) );
+					});
+
+					$i++;
+				}
+
 				if ( is_multisite() ) restore_current_blog(); // multisite compatibility
 
 			}
@@ -243,6 +269,36 @@ if ( !class_exists( 'DB_SETTINGS_WebsiteSettings' ) ) :
 				case "link" :
 					$link = $this->telegram( $telegram, "href", $i );
 					$html = "<a href=\"{$link}\" class=\"{$classes}\">@{$telegram}</a>";
+					break;
+
+			}
+
+			return wp_kses_post( $html );
+
+		}
+
+		function address( $address, $type, $i ) {
+
+			$classes = "db-wcs-contact db-wcs-contact-address db-wcs-contact-address-{$i}";
+
+			switch ( $type ) {
+
+				case "text" :
+					$html = "<span class=\"{$classes}\">{$address}</span>";
+					break;
+
+				case "href" :
+					$href = str_replace(
+						array( " " ),
+						'+',
+						$address
+					);
+					$html = "https://www.google.com/maps/search/{$href}";
+					break;
+
+				case "link" :
+					$link = $this->address( $address, "href", $i );
+					$html = "<a href=\"{$link}\" class=\"{$classes}\" target=\"_blank\" rel=\"nofollow noopener noreferrer\">{$address}</a>";
 					break;
 
 			}

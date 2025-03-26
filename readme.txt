@@ -4,14 +4,14 @@ Donate link: https://bisteinoff.com
 Tags: shortcodes, phone, whatsapp, telegram, email
 Requires at least: 4.6
 Tested up to: 6.7
-Stable tag: 2.10
+Stable tag: 2.11
 License: GPL2
 
 All phone numbers, e-mails, whatsapp and telegram chats are set on 1 page. You just use shortcodes instead of writing and rewriting the contacts.
 
 == Description ==
 
-DB Edit All Contacts on 1 Settings Page is an easy solution for editing all contacts on 1 Settings Page. All phone numbers, e-mails, whatsapp and telegram chats are inserted further using easy shortcodes. Once changed on the Settings Page the contact is changed everywhere on the website.
+DB Edit All Contacts on 1 Settings Page is an easy solution for editing all contacts on 1 Settings Page. Any phone number, address, e-mail, whatsapp and telegram chat is inserted further using easy shortcodes. Once changed on the Settings Page the contact is changed everywhere on the website.
 
 * * *
 
@@ -41,6 +41,12 @@ You can use the following shortcodes:
 * `[db-telegram-link]` - to insert the telegram number as link
 * `[db-telegram-href]` - to insert the href parameter of the telegram number
 
+**Address**
+
+* `[db-address]` - to insert the address as text
+* `[db-address-link]` - to insert the address as link to Google Maps search
+* `[db-address-href]` - to insert the href parameter of Google Maps search link of the address
+
 
 == Installation ==
 
@@ -52,7 +58,7 @@ You can use the following shortcodes:
 
 = Why is it useful for my website? =
 
-You can use shortcodes for phone number, whatsapp, telegram, and e-mail, and insert them where needed. If once you need to change them, they will be changed automatically everywhere, where you had inserted them using the shortcodes.
+You can use shortcodes for phone number, whatsapp, telegram, e-mail and address, and insert them where needed. If once you need to change them, they will be changed automatically everywhere, where you had inserted them using the shortcodes.
 
 = Can I set several Phone numbers or E-mails? =
 
@@ -65,6 +71,10 @@ You do not have to worry about the way how the shortcodes are formed. You will f
 Yes, you should use the corresponding shortcode. You will easily understand which one. To the right of each shortcode you will see an example, how it will work on a page.
 
 == Changelog ==
+
+= 2.11 =
+* Feature: Add new contact option: Address.
+* Fix: Display the N-th contact even if the previous one was removed.
 
 = 2.10 =
 * Feature: Add script to dynamically change shortcode preview in admin panel.

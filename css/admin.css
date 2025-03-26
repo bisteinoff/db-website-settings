@@ -54,6 +54,14 @@
     padding: 10px 30px;
 }
 
+.db-settings-admin .db-settings-table td:last-child {
+    overflow-wrap: break-word;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+    max-width: 100%;
+}
+
 .db-settings-field-description {
     font-size: .9em;
     font-style: italic;
